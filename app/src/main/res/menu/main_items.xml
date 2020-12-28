@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_menu_home"
+        android:title="@string/string_bottom_menu_home"
+        android:enabled="true"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/bottom_menu_search"
+        android:title="@string/string_bottom_menu_search"
+        android:enabled="true"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/bottom_menu_myinfo"
+        android:title="@string/string_bottom_menu_myinfo"
+        android:enabled="true"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/bottom_menu_myrent"
+        android:title="@string/string_bottom_menu_myrent"
+        android:enabled="true"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/bottom_menu_cataegory"
+        android:title="@string/string_bottom_menu_cataegory"
+        android:enabled="true"
+        android:icon="@drawable/home"/>
+</menu>

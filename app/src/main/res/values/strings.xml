@@ -3,8 +3,9 @@
     <string name="app_name">다대여</string>
     <!--           *****    mainActivity    *****           -->
     <!-- 하단바 -->
-    <string name="string_bottom_menu_menu">메뉴</string>
+    <string name="string_bottom_menu_cataegory">카테고리</string>
     <string name="string_bottom_menu_home">홈</string>
     <string name="string_bottom_menu_search">검색</string>
     <string name="string_bottom_menu_myinfo">내정보</string>
+    <string name="string_bottom_menu_myrent">대여</string>
 </resources>
