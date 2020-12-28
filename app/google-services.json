@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "126340379027",
+    "project_id": "dadaeyeo",
+    "storage_bucket": "dadaeyeo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126340379027:android:6fb5a3bbeaec3e78967866",
+        "android_client_info": {
+          "package_name": "com.hanyj96.dadaeyeo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126340379027-jielc9l0oalq08ep3li4cq7d0anebtks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanyj96.dadaeyeo",
+            "certificate_hash": "b707ee9a9b98e1e20d029f543f6cedcae3f6cb32"
+          }
+        },
+        {
+          "client_id": "126340379027-0rpm02mab628qbmjr8emamv0eq7i4686.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnr0FTGqlJ9r_CaD1NlnDHWJAOns8tWAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126340379027-0rpm02mab628qbmjr8emamv0eq7i4686.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

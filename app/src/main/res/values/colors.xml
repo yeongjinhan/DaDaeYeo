@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#03DAC5</color>
+    <!--           *****    mainActivity    *****           -->
+    <!-- 하단바 -->
+    <color name="color_bottom_menu_menu">#03DAC5</color>
+    <color name="color_bottom_menu_home">#03DAC5</color>
+    <color name="color_bottom_menu_search">#03DAC5</color>
+    <color name="color_bottom_menu_myinfo">#03DAC5</color>
+</resources>
