@@ -8,4 +8,7 @@
     <string name="string_bottom_menu_search">검색</string>
     <string name="string_bottom_menu_myinfo">내정보</string>
     <string name="string_bottom_menu_myrent">대여</string>
+    <!--           *****    HomeFragment    *****           -->
+    <!-- Item Type1 -->
+    <string name="string_item_type1_btn_more">+ 더보기</string>
 </resources>
