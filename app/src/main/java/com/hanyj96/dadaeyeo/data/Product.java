@@ -1,5 +1,6 @@
 package com.hanyj96.dadaeyeo.data;
 
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Product implements Serializable {
         ProductIMG = productIMG;
     }
 
+    @Exclude
     public String getProductID() {
         return ProductID;
     }

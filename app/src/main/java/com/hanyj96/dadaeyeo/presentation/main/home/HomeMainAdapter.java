@@ -11,7 +11,7 @@ import com.hanyj96.dadaeyeo.databinding.ItemType1Binding;
 
 import static com.hanyj96.dadaeyeo.utils.Constants.HOME_ITEM_TYPE1;
 
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @NonNull
     @Override
@@ -51,8 +51,5 @@ class ViewHolderItemType1 extends RecyclerView.ViewHolder{
     void bindItemType1(){
 
     }
-}
-interface OnItemType1ClickListener {
-    void onItem1Click();
 }
 
