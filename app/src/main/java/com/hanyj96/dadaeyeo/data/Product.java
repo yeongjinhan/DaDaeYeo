@@ -1,5 +1,7 @@
 package com.hanyj96.dadaeyeo.data;
 
+import androidx.annotation.Nullable;
+
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -56,5 +58,14 @@ public class Product implements Serializable {
 
     public void setProductIMG(String productIMG) {
         ProductIMG = productIMG;
+    }
+
+    public String getStringPrice(){
+        return Double.toString(ProductPrice);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj){
+        return super.equals(obj);
     }
 }
