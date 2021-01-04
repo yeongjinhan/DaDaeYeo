@@ -1,6 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main.home;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -17,4 +18,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         return R.layout.fragment_home;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        dataBinding.mainHomeRecyclerview.setAdapter(homeViewModel.getAdapter());
+    }
 }

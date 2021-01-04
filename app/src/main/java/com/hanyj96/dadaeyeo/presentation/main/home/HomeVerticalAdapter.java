@@ -1,19 +1,56 @@
 package com.hanyj96.dadaeyeo.presentation.main.home;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeVerticalAdapter extends RecyclerView.Adapter<> {
+import com.hanyj96.dadaeyeo.data.HomeItem;
+
+import com.hanyj96.dadaeyeo.databinding.Recycler_View_Type1_DataBinding;
+
+import java.util.ArrayList;
+
+public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapter.VerticalItemType1ViewHolder> {
+    private ArrayList<HomeItem> homeItems;
+    public HomeVerticalAdapter(ArrayList<HomeItem> homeItems){
+        this.homeItems = homeItems;
+    }
 
 
+    @NonNull
+    @Override
+    public VerticalItemType1ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding = Recycler_View_Type1_DataBinding.inflate(layoutInflater);
+        return new VerticalItemType1ViewHolder(recycler_view_type1_dataBinding);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull VerticalItemType1ViewHolder holder, int position) {
+        HomeItem homeItem = homeItems.get(position);
+        if(homeItem != null){
+            holder.bindData(homeItem);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return homeItems.size();
+}
 
     class VerticalItemType1ViewHolder extends RecyclerView.ViewHolder{
-
-        public VerticalItemType1ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        private Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding;
+        public VerticalItemType1ViewHolder(Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding) {
+            super(recycler_view_type1_dataBinding.getRoot());
+            this.recycler_view_type1_dataBinding = recycler_view_type1_dataBinding;
+        }
+        void bindData(HomeItem homeItem){
+            recycler_view_type1_dataBinding.setData(homeItem);
+            HomeHorizontalAdapter homeHorizontalAdapter = new HomeHorizontalAdapter(homeItem.getProducts());
+            recycler_view_type1_dataBinding.setAdapter(homeHorizontalAdapter);
         }
     }
 }
