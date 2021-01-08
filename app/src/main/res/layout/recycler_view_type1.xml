@@ -6,9 +6,6 @@
         <variable
             name="data"
             type="com.hanyj96.dadaeyeo.data.HomeItem" />
-        <variable
-            name="adapter"
-            type="com.hanyj96.dadaeyeo.presentation.main.home.HomeHorizontalAdapter" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,26 +32,26 @@
 
                 <TextView
                     android:id="@+id/item_type1_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:text="@{data.title}"
                     android:textAlignment="textStart"
-                    android:textSize="25sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/item_type1_more"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:text="@string/string_item_type1_btn_more"
                     android:textAlignment="textEnd"
                     android:textColor="#03A9F4"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
             </LinearLayout>
@@ -70,7 +67,7 @@
                     android:id="@+id/item_type1_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:setAdapter="@{adapter}"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

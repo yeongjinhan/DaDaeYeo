@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Inject HomeViewModel homeViewModel;
+    private HomeVerticalAdapter homeVerticalAdapter;
     @Override
     protected int getFragmentLayout() {
         return R.layout.fragment_home;
@@ -21,6 +22,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        dataBinding.mainHomeRecyclerview.setAdapter(homeViewModel.getAdapter());
+        homeVerticalAdapter = new HomeVerticalAdapter(dataBinding.mainHomeRecyclerview.getContext(), homeViewModel.getHomeItems());
+        dataBinding.mainHomeRecyclerview.setAdapter(homeVerticalAdapter);
     }
 }
