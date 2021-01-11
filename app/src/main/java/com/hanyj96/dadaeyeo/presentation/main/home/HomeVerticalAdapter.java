@@ -4,15 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.hanyj96.dadaeyeo.data.HomeItem;
-
 import com.hanyj96.dadaeyeo.databinding.Recycler_View_Type1_DataBinding;
-
 import java.util.ArrayList;
 
 public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapter.VerticalItemType1ViewHolder> {
@@ -43,7 +39,7 @@ public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapte
     @Override
     public int getItemCount() {
         return homeItems.size();
-}
+    }
 
     class VerticalItemType1ViewHolder extends RecyclerView.ViewHolder{
         private Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding;

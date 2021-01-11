@@ -1,6 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,9 @@ public class MainAcitivity extends DaggerAppCompatActivity implements BottomNavi
         mainBinding = DataBindingUtil.setContentView(this, R.layout.acitivity_main);
         if(savedInstanceState == null){
             initBottomNavigationView();
+            mainViewModel.InitData();
         }
+        Log.d("메인액티비티","메인액티비 생성");
     }
     private void initBottomNavigationView(){
         // 네비게이션뷰 할당

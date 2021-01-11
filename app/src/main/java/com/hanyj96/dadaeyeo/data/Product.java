@@ -6,28 +6,24 @@ import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class Product implements Serializable {
     private String ProductID;
     private String ProductName;
     private double ProductPrice;
-    private String ProductIMG;
-    @SuppressWarnings("unused")
-    @ServerTimestamp
-    private Date ProductDate;
+
     @SuppressWarnings("unused")
     public Product() {}
 
     @SuppressWarnings("unused")
-    public Product(String productID, String productName, double productPrice, String productIMG) {
+    public Product(String productID, String productName, double productPrice) {
         ProductID = productID;
         ProductName = productName;
         ProductPrice = productPrice;
-        ProductIMG = productIMG;
     }
 
-    @Exclude
     public String getProductID() {
         return ProductID;
     }
@@ -50,18 +46,6 @@ public class Product implements Serializable {
 
     public void setProductPrice(double productPrice) {
         ProductPrice = productPrice;
-    }
-
-    public String getProductIMG() {
-        return ProductIMG;
-    }
-
-    public void setProductIMG(String productIMG) {
-        ProductIMG = productIMG;
-    }
-
-    public String getStringPrice(){
-        return Double.toString(ProductPrice);
     }
 
     @Override

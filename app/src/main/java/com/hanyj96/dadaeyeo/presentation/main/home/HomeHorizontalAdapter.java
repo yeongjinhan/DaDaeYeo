@@ -1,13 +1,9 @@
 package com.hanyj96.dadaeyeo.presentation.main.home;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.hanyj96.dadaeyeo.data.Product;
 import com.hanyj96.dadaeyeo.databinding.Item_type1_1DataBinding;
 

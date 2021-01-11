@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hanyj96.dadaeyeo.presentation.main.MainViewModel;
+import com.hanyj96.dadaeyeo.presentation.main.home.HomeViewModel;
 import com.hanyj96.dadaeyeo.presentation.splash.SplashViewModel;
 
 import dagger.Binds;
@@ -26,4 +27,9 @@ abstract class AppViewModelModule {
     @IntoMap
     @ViewModelKey(SplashViewModel.class)
     abstract ViewModel provideSplashViewModel(SplashViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel.class)
+    abstract ViewModel provideHomeViewModel(HomeViewModel viewModel);
 }

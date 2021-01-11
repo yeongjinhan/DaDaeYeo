@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class="Item_type1_1DataBinding">
         <variable
             name="data"
             type="com.hanyj96.dadaeyeo.data.Product" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:orientation="vertical">
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingRight="10dp">
 
         <ImageView
             android:id="@+id/item1_img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:bind_product_img="@{data.productID}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -38,17 +40,17 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{data.productName}"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/item1_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{data.stringPrice}"
                 android:textColor="#7CB1F3"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:bind_String_price="@{data.productPrice}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>
