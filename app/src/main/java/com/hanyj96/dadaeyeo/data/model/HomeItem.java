@@ -1,12 +1,17 @@
-package com.hanyj96.dadaeyeo.data;
+package com.hanyj96.dadaeyeo.data.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HomeItem {
+public class HomeItem implements Serializable {
     private int ItemType;
     private String Title;
     private ArrayList<Product> Products;
 
+    @SuppressWarnings("unused")
+    public HomeItem() {}
+
+    @SuppressWarnings("unused")
     public HomeItem(int itemType, String title, ArrayList<Product> products) {
         ItemType = itemType;
         Title = title;

@@ -5,7 +5,7 @@
     <data class="Recycler_View_Type1_DataBinding">
         <variable
             name="data"
-            type="com.hanyj96.dadaeyeo.data.HomeItem" />
+            type="com.hanyj96.dadaeyeo.data.model.HomeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

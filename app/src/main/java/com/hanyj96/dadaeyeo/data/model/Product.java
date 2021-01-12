@@ -1,4 +1,4 @@
-package com.hanyj96.dadaeyeo.data;
+package com.hanyj96.dadaeyeo.data.model;
 
 import androidx.annotation.Nullable;
 

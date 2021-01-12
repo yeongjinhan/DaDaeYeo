@@ -2,18 +2,18 @@ package com.hanyj96.dadaeyeo.presentation.main.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.hanyj96.dadaeyeo.data.HomeItem;
+import com.hanyj96.dadaeyeo.data.model.HomeItem;
 import com.hanyj96.dadaeyeo.databinding.Recycler_View_Type1_DataBinding;
 import java.util.ArrayList;
 
 public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapter.VerticalItemType1ViewHolder> {
     private ArrayList<HomeItem> homeItems;
     private Context context;
+
     public HomeVerticalAdapter(Context context, ArrayList<HomeItem> homeItems){
         this.context = context;
         this.homeItems = homeItems;

@@ -38,7 +38,7 @@ public class MainAcitivity extends DaggerAppCompatActivity implements BottomNavi
         mainBinding = DataBindingUtil.setContentView(this, R.layout.acitivity_main);
         if(savedInstanceState == null){
             initBottomNavigationView();
-            mainViewModel.InitData();
+            //mainViewModel.InitData();
         }
         Log.d("메인액티비티","메인액티비 생성");
     }
