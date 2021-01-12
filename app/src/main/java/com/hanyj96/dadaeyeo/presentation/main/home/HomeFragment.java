@@ -33,16 +33,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     private void initRecyclerAdapter(){
         Log.d("HomeFragment","Init RecyclerView Adapter");
-        homeViewModel.getHomeItemLiveData().observe(getViewLifecycleOwner(),HomeItemUpdateObserver);
+        //homeViewModel.getHomeItemLiveData().observe(getViewLifecycleOwner(),HomeItemUpdateObserver);
     }
 
-    Observer<ArrayList<HomeItem>> HomeItemUpdateObserver = new Observer<ArrayList<HomeItem>>() {
+    /*Observer<ArrayList<HomeItem>> HomeItemUpdateObserver = new Observer<ArrayList<HomeItem>>() {
         @Override
         public void onChanged(ArrayList<HomeItem> homeItems) {
             homeVerticalAdapter = new HomeVerticalAdapter(dataBinding.mainHomeRecyclerview.getContext(), homeItems);
             dataBinding.mainHomeRecyclerview.setAdapter(homeVerticalAdapter);
         }
-    };
+    };*/
 
     private void loadHomeItemData(){
 

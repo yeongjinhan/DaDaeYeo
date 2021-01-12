@@ -12,17 +12,10 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 public class HomeViewModel extends ViewModel {
-    private LiveData<ArrayList<HomeItem>> homeItemLiveData;
-    private ProductsDataSource productsDataSource = new ProductsDataSource();
+
 
     @Inject
     public HomeViewModel(){
-        if(homeItemLiveData == null){
-            this.homeItemLiveData = productsDataSource.findAll();
-        }
-    }
 
-    public LiveData<ArrayList<HomeItem>> getHomeItemLiveData(){
-        return homeItemLiveData;
     }
 }

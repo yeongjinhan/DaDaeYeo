@@ -48,8 +48,4 @@ public class Product implements Serializable {
         ProductPrice = productPrice;
     }
 
-    @Override
-    public boolean equals(@Nullable Object obj){
-        return super.equals(obj);
-    }
 }

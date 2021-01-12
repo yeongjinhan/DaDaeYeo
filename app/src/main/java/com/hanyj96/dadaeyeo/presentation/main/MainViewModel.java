@@ -10,6 +10,8 @@ import com.hanyj96.dadaeyeo.data.model.HomeItem;
 import com.hanyj96.dadaeyeo.data.model.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,7 +24,7 @@ public class MainViewModel extends ViewModel {
     public void InitData(){
         Log.d("홈뷰모델","InitData 호출");
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = firebaseFirestore.collection("HomeItem");
+        CollectionReference collectionReference = firebaseFirestore.collection("Products");
 
         ArrayList<Product> products = new ArrayList<>();
         Product p1 = new Product("60000000","갤럭시워치3",425700);
@@ -40,10 +42,6 @@ public class MainViewModel extends ViewModel {
         products.add(p6);
         products.add(p7);
 
-        HomeItem homeItem = new HomeItem(1,"시계", products);
-        collectionReference.document("1").set(homeItem);
-
-        ArrayList<Product> products2 = new ArrayList<>();
         Product p8 = new Product("10000000","아이폰12Pro",1350000);
         Product p9 = new Product("10000001","iPad Air 10.9 4세대",760360);
         Product p10 = new Product("10000002","iPad Pro 11 2세대",1029000);
@@ -55,18 +53,20 @@ public class MainViewModel extends ViewModel {
         Product p16 = new Product("10000008","LG 그램 15",1248020);
         Product p17 = new Product("10000009","2020년 맥북 프로16",3085260);
         Product p18 = new Product("10000010","닌텐도 스위치",356000);
-        products2.add(p8);
-        products2.add(p9);
-        products2.add(p10);
-        products2.add(p11);
-        products2.add(p12);
-        products2.add(p13);
-        products2.add(p14);
-        products2.add(p15);
-        products2.add(p16);
-        products2.add(p17);
-        products2.add(p18);
-        HomeItem homeItem2 = new HomeItem(2,"전자제품", products2);
-        collectionReference.document("2").set(homeItem2);
+        products.add(p8);
+        products.add(p9);
+        products.add(p10);
+        products.add(p11);
+        products.add(p12);
+        products.add(p13);
+        products.add(p14);
+        products.add(p15);
+        products.add(p16);
+        products.add(p17);
+        products.add(p18);
+
+        Map<String, ArrayList<Product>> map = new HashMap<>();
+        map.put("AllProduct", products);
+        collectionReference.document("1").set(map);
     }
 }

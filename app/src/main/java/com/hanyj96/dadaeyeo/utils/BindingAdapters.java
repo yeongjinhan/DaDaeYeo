@@ -23,6 +23,7 @@ public class BindingAdapters {
         Context context = view.getContext();
         GlideApp.with(context)
                 .load(storageReference)
+                .override(200,200)
                 .into(view);
     }
 
