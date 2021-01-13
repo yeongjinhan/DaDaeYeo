@@ -9,17 +9,13 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.hanyj96.dadaeyeo.BuildConfig;
-import com.hanyj96.dadaeyeo.data.model.HomeItem;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.hanyj96.dadaeyeo.data.model.Product;
 import com.hanyj96.dadaeyeo.data.model.ProductDocument;
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Arrays;
 
+@SuppressWarnings("ConstantConditions")
 public class ProductsDataSource {
     private static final String TAG = "ProductsDataSource";
 
@@ -33,8 +29,25 @@ public class ProductsDataSource {
         getProductData();
     }
 
+    public void SearchProduct(String word){
+        Log.d(TAG,"Search Start");
+        //CollectionReference productCollection = firebaseFirestore.collection("Products");
+        CollectionReference Ref = firebaseFirestore.collection("ProductList");
+        Ref.document("ElectronicProducts").collection("Tablet")//.whereIn("ProductID", Arrays.asList("10000002", "10000001"))
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                        }
+                    }else{
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
     private void getProductData(){
-        DocumentReference doc = firebaseFirestore.collection("Products").document("1");
+        /*DocumentReference doc = firebaseFirestore.collection("Products").document("1");
         doc.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 DocumentSnapshot snapshot = task.getResult();
@@ -44,6 +57,6 @@ public class ProductsDataSource {
                     ProductList.setValue(products);
                 }
             }
-        });
+        });*/
     }
 }

@@ -20,6 +20,7 @@ public class ProductRepository {
     ProductRepository(){
         ProductsDataSource productsDataSource = new ProductsDataSource();
         products = productsDataSource.findAll();
+        productsDataSource.SearchProduct("ProductName");
     }
 
     public LiveData<ArrayList<Product>> getProducts(){

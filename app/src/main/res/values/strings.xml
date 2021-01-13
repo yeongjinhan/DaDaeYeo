@@ -11,4 +11,7 @@
     <!--           *****    HomeFragment    *****           -->
     <!-- Item Type1 -->
     <string name="string_item_type1_btn_more">+ 더보기</string>
+    <!--           *****    SearchFragmnet    *****           -->
+    <!-- EditText -->
+    <string name="string_input_text">검색어를 입력하세요.</string>
 </resources>

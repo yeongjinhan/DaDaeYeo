@@ -18,7 +18,6 @@ public class BindingAdapters {
     @BindingAdapter("bind_product_img")
     public static void setProductImageView(ImageView view, String pid){
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        Log.d("BindingIMG",pid);
         StorageReference storageReference = firebaseStorage.getReference().child("root/Products/" + pid + ".jpg");
         Context context = view.getContext();
         GlideApp.with(context)

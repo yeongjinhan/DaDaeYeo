@@ -5,11 +5,13 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hanyj96.dadaeyeo.data.model.HomeItem;
 import com.hanyj96.dadaeyeo.data.model.Product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +24,8 @@ public class MainViewModel extends ViewModel {
         this.mainRepository = mainRepository;
     }
     public void InitData(){
-        Log.d("홈뷰모델","InitData 호출");
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("Products");
-
         ArrayList<Product> products = new ArrayList<>();
         Product p1 = new Product("60000000","갤럭시워치3",425700);
         Product p2 = new Product("60000001","갤럭시워치 액티브2",223270);
@@ -41,7 +41,6 @@ public class MainViewModel extends ViewModel {
         products.add(p5);
         products.add(p6);
         products.add(p7);
-
         Product p8 = new Product("10000000","아이폰12Pro",1350000);
         Product p9 = new Product("10000001","iPad Air 10.9 4세대",760360);
         Product p10 = new Product("10000002","iPad Pro 11 2세대",1029000);
@@ -64,9 +63,16 @@ public class MainViewModel extends ViewModel {
         products.add(p16);
         products.add(p17);
         products.add(p18);
-
         Map<String, ArrayList<Product>> map = new HashMap<>();
         map.put("AllProduct", products);
         collectionReference.document("1").set(map);
+    }
+    public void testData(){
+        Product p9 = new Product("10000001","iPad Air 10.9 4세대",760360);
+        Product p10 = new Product("10000002","iPad Pro 11 2세대",1029000);
+        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("ProductList");
+        DocumentReference doc = collectionReference.document("ElectronicProducts");
+        doc.collection("Tablet").add(p9);
+        doc.collection("Tablet").add(p10);
     }
 }

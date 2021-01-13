@@ -3,6 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#03DAC5</color>
+    <!--           *****    EditText    *****           -->
+    <color name="color_Edit_text">#DCDCDC</color>
     <!--           *****    mainActivity    *****           -->
     <!-- 하단바 -->
     <color name="color_bottom_menu_menu">#03DAC5</color>

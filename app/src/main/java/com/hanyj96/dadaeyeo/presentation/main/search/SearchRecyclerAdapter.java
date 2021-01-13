@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hanyj96.dadaeyeo.data.model.Product;
 import com.hanyj96.dadaeyeo.databinding.ProductItem_type1;
+import com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener;
 
 import java.util.ArrayList;
 
 public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.SearchRecyclerViewHolder>  {
     private ArrayList<Product> products;
+    private OnProductClickListener onProductClickListener;
 
-    public SearchRecyclerAdapter(ArrayList<Product> products){
+    public SearchRecyclerAdapter(ArrayList<Product> products, OnProductClickListener onProductClickListener){
         this.products = products;
+        this.onProductClickListener = onProductClickListener;
     }
 
     @NonNull
@@ -50,6 +53,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
 
         void bindData(Product product){
             productItem_type1.setProduct(product);
+            productItem_type1.setOnProductClickListener(onProductClickListener);
         }
     }
 }

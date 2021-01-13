@@ -39,8 +39,8 @@ public class MainAcitivity extends DaggerAppCompatActivity implements BottomNavi
         if(savedInstanceState == null){
             initBottomNavigationView();
             //mainViewModel.InitData();
+            //mainViewModel.testData();
         }
-        Log.d("메인액티비티","메인액티비 생성");
     }
     private void initBottomNavigationView(){
         // 네비게이션뷰 할당

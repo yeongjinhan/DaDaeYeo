@@ -6,12 +6,16 @@
         <variable
             name="product"
             type="com.hanyj96.dadaeyeo.data.model.Product" />
+        <variable
+            name="onProductClickListener"
+            type="com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener" />
     </data>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@drawable/round_product_item"
+        android:onClick="@{(v) -> onProductClickListener.onProductClick(product)}"
         android:orientation="vertical">
 
         <LinearLayout
