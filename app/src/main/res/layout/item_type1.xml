@@ -5,7 +5,7 @@
     <data class="Item_type1_1DataBinding">
         <variable
             name="data"
-            type="com.hanyj96.dadaeyeo.data.model.Product" />
+            type="com.hanyj96.dadaeyeo.data.model.products.Product" />
     </data>
 
     <LinearLayout

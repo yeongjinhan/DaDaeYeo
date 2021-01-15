@@ -1,4 +1,4 @@
-package com.hanyj96.dadaeyeo.data.model;
+package com.hanyj96.dadaeyeo.data.model.user;
 
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;

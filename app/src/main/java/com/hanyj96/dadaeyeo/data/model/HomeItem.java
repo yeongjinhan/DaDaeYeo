@@ -1,5 +1,7 @@
 package com.hanyj96.dadaeyeo.data.model;
 
+import com.hanyj96.dadaeyeo.data.model.products.Product;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

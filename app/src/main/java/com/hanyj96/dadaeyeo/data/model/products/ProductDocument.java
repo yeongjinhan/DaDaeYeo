@@ -1,4 +1,4 @@
-package com.hanyj96.dadaeyeo.data.model;
+package com.hanyj96.dadaeyeo.data.model.products;
 
 import java.util.ArrayList;
 

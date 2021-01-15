@@ -1,4 +1,4 @@
-package com.hanyj96.dadaeyeo.datasource.remote;
+package com.hanyj96.dadaeyeo.database.remote;
 
 import android.util.Log;
 
@@ -6,14 +6,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.hanyj96.dadaeyeo.data.model.Product;
-import com.hanyj96.dadaeyeo.data.model.ProductDocument;
+import com.hanyj96.dadaeyeo.data.model.products.Product;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @SuppressWarnings("ConstantConditions")
 public class ProductsDataSource {
@@ -26,37 +23,25 @@ public class ProductsDataSource {
 
     public ProductsDataSource(){
         firebaseFirestore = FirebaseFirestore.getInstance();
-        getProductData();
     }
 
     public void SearchProduct(String word){
-        Log.d(TAG,"Search Start");
-        //CollectionReference productCollection = firebaseFirestore.collection("Products");
-        CollectionReference Ref = firebaseFirestore.collection("ProductList");
-        Ref.document("ElectronicProducts").collection("Tablet")//.whereIn("ProductID", Arrays.asList("10000002", "10000001"))
+        ArrayList<Product> result = new ArrayList<>();
+        CollectionReference Ref = firebaseFirestore.collection("Products");
+        Ref.orderBy("productName").startAt(word).endAt(word + '\uf8ff')
                 .get()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d(TAG, document.getId() + " => " + document.getData());
+                            result.add(document.toObject(Product.class));
+                        }
+                        if(result != null){
+                            ProductList.setValue(result);
                         }
                     }else{
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
-    }
-
-    private void getProductData(){
-        /*DocumentReference doc = firebaseFirestore.collection("Products").document("1");
-        doc.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                DocumentSnapshot snapshot = task.getResult();
-                if(snapshot.exists()){
-                    ArrayList<Product> products = snapshot.toObject(ProductDocument.class).AllProduct;
-                    Log.d(TAG,"size : " + products.size());
-                    ProductList.setValue(products);
-                }
-            }
-        });*/
     }
 }

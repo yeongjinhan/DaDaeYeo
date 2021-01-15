@@ -5,7 +5,7 @@
     <data class="ProductItem_type1">
         <variable
             name="product"
-            type="com.hanyj96.dadaeyeo.data.model.Product" />
+            type="com.hanyj96.dadaeyeo.data.model.products.Product" />
         <variable
             name="onProductClickListener"
             type="com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener" />

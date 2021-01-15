@@ -1,13 +1,12 @@
 package com.hanyj96.dadaeyeo.presentation.main.search;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hanyj96.dadaeyeo.data.model.Product;
+import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.ProductItem_type1;
 import com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener;
 
