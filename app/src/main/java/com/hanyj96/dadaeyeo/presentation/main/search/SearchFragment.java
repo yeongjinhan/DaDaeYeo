@@ -56,6 +56,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         initSearchKeywordListView();
         observeProductList();
         observeKeywordList();
+        observeAutoKeyword();
     }
 
     /*******************************************
@@ -80,7 +81,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        // 키보드 클릭 리스너
+        // 검색버튼 클릭 리스너
         dataBinding.editTextInputWord.setOnEditorActionListener((v, actionId, event) -> {
             switch (actionId){
                 case EditorInfo.IME_ACTION_SEARCH:
@@ -108,6 +109,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
             }
         });
 
+        // 텍스트 입력 리스너
         dataBinding.editTextInputWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,7 +118,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchViewModel.productRepository.searchProductforKeyword(s.toString());
+                searchViewModel.findKeywords(s.toString());
             }
 
             @Override
@@ -143,11 +145,16 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     private void observeKeywordList(){
         searchViewModel.getKeywordList().
-                observe(getViewLifecycleOwner(), keywords -> searchListAdapter.UpdateItems(keywords));
+                observe(getViewLifecycleOwner(), keywords -> searchListAdapter.updateItems(keywords));
+    }
+
+    private void observeAutoKeyword(){
+        searchViewModel.getKeywordAuto().
+                observe(getViewLifecycleOwner(), keywords -> searchViewModel.addAutoKeywords(keywords));
     }
 
     private void Search(String keyword){
-        searchViewModel.productRepository.searchProductforName(keyword);
+        searchViewModel.searchProduct(keyword);
         // 검색결과 레이아웃에 포커스 삽입
         dataBinding.mainSearchLayout.setFocusableInTouchMode(true);
         dataBinding.mainSearchLayout.requestFocus();

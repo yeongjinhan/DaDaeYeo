@@ -1,5 +1,6 @@
 package com.hanyj96.dadaeyeo.presentation.main.search;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +25,10 @@ public class SearchListAdapter extends BaseAdapter {
         this.onDeleteKeywordClickListener = onDeleteKeywordClickListener;
     }
 
-    public void UpdateItems(List<Keyword> newitems){
+    public void updateItems(List<Keyword> newitems){
+        Log.d("리스트어댑터","아이템업데이트 size : " + newitems.size());
         this.keywords.clear();
         this.keywords = newitems;
-        notifyDataSetChanged();
-    }
-
-    public void addAutoKeywords(List<Keyword> items){
-        this.keywords.clear();
-        this.keywords.addAll(items);
         notifyDataSetChanged();
     }
 
