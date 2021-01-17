@@ -16,9 +16,20 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     private ArrayList<Product> products;
     private OnProductClickListener onProductClickListener;
 
-    public SearchRecyclerAdapter(ArrayList<Product> products, OnProductClickListener onProductClickListener){
-        this.products = products;
+    public SearchRecyclerAdapter(OnProductClickListener onProductClickListener){
+        this.products = new ArrayList<>();
         this.onProductClickListener = onProductClickListener;
+    }
+
+    public void updateItems(ArrayList<Product> products){
+        this.products.clear();
+        this.products = products;
+        notifyDataSetChanged();
+    }
+
+    public void clearItems(){
+        this.products.clear();
+        notifyDataSetChanged();
     }
 
     @NonNull

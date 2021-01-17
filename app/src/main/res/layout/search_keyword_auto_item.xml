@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data class="SearchList_keyword_auto">
+        <variable
+            name="keyword"
+            type="com.hanyj96.dadaeyeo.data.model.user.Keyword" />
+        <variable
+            name="keywordClickListener"
+            type="com.hanyj96.dadaeyeo.presentation.main.search.OnKeywordClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{(v) -> keywordClickListener.ClickKeyword(keyword)}"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search_list_keyword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="@{keyword.keyword}"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,4 +1,4 @@
-package com.hanyj96.dadaeyeo.utils;
+package com.hanyj96.dadaeyeo.di;
 
 import android.content.Context;
 import android.renderscript.ScriptGroup;

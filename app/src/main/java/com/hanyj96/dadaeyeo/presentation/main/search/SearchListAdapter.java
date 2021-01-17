@@ -5,27 +5,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.hanyj96.dadaeyeo.data.model.user.KeywordHistory;
-import com.hanyj96.dadaeyeo.databinding.SearchList_item;
+import com.hanyj96.dadaeyeo.data.model.user.Keyword;
+import com.hanyj96.dadaeyeo.databinding.SearchList_keyword_auto;
+import com.hanyj96.dadaeyeo.databinding.SearchList_keyword_history;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchListAdapter extends BaseAdapter {
-    List<KeywordHistory> keywords;
+    private List<Keyword> keywords;
     private OnKeywordClickListener onKeywordClickListener;
     private OnDeleteKeywordClickListener onDeleteKeywordClickListener;
 
-    SearchListAdapter(List<KeywordHistory> keywords,
-                      OnKeywordClickListener onKeywordClickListener,
+    SearchListAdapter(OnKeywordClickListener onKeywordClickListener,
                       OnDeleteKeywordClickListener onDeleteKeywordClickListener){
-        this.keywords = keywords;
+        this.keywords = new ArrayList<>();
         this.onKeywordClickListener = onKeywordClickListener;
         this.onDeleteKeywordClickListener = onDeleteKeywordClickListener;
     }
 
-    public void UpdateItems(List<KeywordHistory> newitems){
+    public void UpdateItems(List<Keyword> newitems){
         this.keywords.clear();
         this.keywords = newitems;
+        notifyDataSetChanged();
+    }
+
+    public void addAutoKeywords(List<Keyword> items){
+        this.keywords.clear();
+        this.keywords.addAll(items);
         notifyDataSetChanged();
     }
 
@@ -47,11 +54,18 @@ public class SearchListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        SearchList_item searchList_item = SearchList_item.inflate(layoutInflater);
-        searchList_item.setKeyword(keywords.get(position));
-        searchList_item.setKeywordClickListener(onKeywordClickListener);
-        searchList_item.setDeleteKeywordClickListener(onDeleteKeywordClickListener);
-        return searchList_item.getRoot();
+        if(keywords.get(position).isAuto()){
+            SearchList_keyword_auto searchList_item = SearchList_keyword_auto.inflate(layoutInflater);
+            searchList_item.setKeyword(keywords.get(position));
+            searchList_item.setKeywordClickListener(onKeywordClickListener);
+            return searchList_item.getRoot();
+        }else{
+            SearchList_keyword_history searchList_item = SearchList_keyword_history.inflate(layoutInflater);
+            searchList_item.setKeyword(keywords.get(position));
+            searchList_item.setKeywordClickListener(onKeywordClickListener);
+            searchList_item.setDeleteKeywordClickListener(onDeleteKeywordClickListener);
+            return searchList_item.getRoot();
+        }
     }
 }
 

@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hanyj96.dadaeyeo.presentation.main.search.SearchViewModel" />
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:background="#FFFFFF"
             android:orientation="vertical"
             android:paddingTop="5dp">
@@ -55,7 +59,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#E1E1E1">
 
             <LinearLayout
                 android:id="@+id/main_search_layout"
@@ -76,15 +81,16 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/main_search_recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#E1E1E1" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <ListView
                 android:id="@+id/main_search_keyword_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E1E1E1" />
+                android:divider="@drawable/list_divider"
+                android:dividerHeight="2px"
+                android:visibility="visible" />
 
         </FrameLayout>
     </LinearLayout>

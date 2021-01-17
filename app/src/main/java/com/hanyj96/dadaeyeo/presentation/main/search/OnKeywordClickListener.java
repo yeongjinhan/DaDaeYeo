@@ -1,7 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main.search;
 
-import com.hanyj96.dadaeyeo.data.model.user.KeywordHistory;
+import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 
 public interface OnKeywordClickListener {
-    void ClickKeyword(KeywordHistory keyword);
+    void ClickKeyword(Keyword keyword);
 }

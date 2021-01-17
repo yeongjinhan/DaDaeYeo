@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.hanyj96.dadaeyeo.data.model.user.KeywordHistory;
+import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 
 import java.util.List;
 
@@ -17,18 +17,18 @@ import io.reactivex.rxjava3.core.Flowable;
 
 
 @Dao
-public interface KeywordHistoryDao {
+public interface KeywordDao {
 
-    @Query("SELECT * FROM KeywordHistory ORDER BY kid DESC")
-    Flowable<List<KeywordHistory>> getAll();
+    @Query("SELECT * FROM Keyword ORDER BY kid DESC")
+    LiveData<List<Keyword>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable insert(KeywordHistory keywordHistory);
+    void insert(Keyword keyword);
 
     @Update
-    Completable update(KeywordHistory keywordHistory);
+    void update(Keyword keyword);
 
     @Delete
-    Completable delete(KeywordHistory keywordHistory);
+    void delete(Keyword keyword);
 
 }

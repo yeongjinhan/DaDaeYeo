@@ -1,7 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main.search;
 
-import com.hanyj96.dadaeyeo.data.model.user.KeywordHistory;
+import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 
 public interface OnDeleteKeywordClickListener {
-    void deleteKeyword(KeywordHistory keyword);
+    void deleteKeyword(Keyword keyword);
 }

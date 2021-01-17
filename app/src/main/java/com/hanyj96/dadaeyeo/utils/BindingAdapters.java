@@ -1,7 +1,9 @@
 package com.hanyj96.dadaeyeo.utils;
 
 import android.content.Context;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +11,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hanyj96.dadaeyeo.di.GlideApp;
 
 import java.text.DecimalFormat;
 

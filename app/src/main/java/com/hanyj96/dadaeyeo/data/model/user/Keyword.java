@@ -4,16 +4,18 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class KeywordHistory {
+public class Keyword {
 
     @PrimaryKey(autoGenerate = true)
     private int kid;
 
     private String keyword;
+    private boolean auto;
     private String date;
 
-    public KeywordHistory(String keyword, String date) {
+    public Keyword(String keyword, boolean auto, String date) {
         this.keyword = keyword;
+        this.auto = auto;
         this.date = date;
     }
 
@@ -31,6 +33,14 @@ public class KeywordHistory {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public boolean isAuto() {
+        return auto;
+    }
+
+    public void setAuto(boolean auto) {
+        this.auto = auto;
     }
 
     public String getDate() {
