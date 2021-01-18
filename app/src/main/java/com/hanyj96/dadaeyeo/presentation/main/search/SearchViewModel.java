@@ -1,12 +1,9 @@
 package com.hanyj96.dadaeyeo.presentation.main.search;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 
-import androidx.databinding.Bindable;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.hanyj96.dadaeyeo.data.model.products.Product;
@@ -26,21 +23,21 @@ public class SearchViewModel extends ViewModel{
 
     private ProductRepository productRepository;
     private KeywordRepository keywordRepository;
-    private MutableLiveData<List<Keyword>> keywordList = new MutableLiveData<>();
-    private LiveData<ArrayList<Product>> productLiveData;
-
-    // 검색기록
-    private LiveData<List<Keyword>> keywordHistroy;
-    // 추천검색어
-    private LiveData<List<Keyword>> keywordAuto;
+    // 검색기록 + 추천검색어 리스트
+    private MediatorLiveData<List<Keyword>> keywordList = new MediatorLiveData<>();
+    // 제품 리스트
+    private LiveData<ArrayList<Product>> ProductList;
 
     @Inject
     SearchViewModel(ProductRepository productRepository, KeywordRepository keywordRepository){
         this.productRepository = productRepository;
         this.keywordRepository = keywordRepository;
-        productLiveData = productRepository.getProducts();
-        keywordHistroy = keywordRepository.getHistoryKeywordList();
-        keywordAuto = keywordRepository.getAutoKeywordList();
+        ProductList = productRepository.getProducts();
+        // 키워드
+        keywordList.addSource(keywordRepository.getHistoryKeywordList(),
+                value-> keywordList.setValue(value));
+        keywordList.addSource(keywordRepository.getAutoKeywordList(),
+                value-> keywordList.setValue(value));
     }
 
     /*******************************************
@@ -58,15 +55,19 @@ public class SearchViewModel extends ViewModel{
     // DB CRUD
 
     public void insertKeyword(String word){
+        for(Keyword keyword : keywordRepository.loadHistoryKeywordList()){
+            if(keyword.getKeyword().equals(word)){
+                Log.d(TAG,"키워드 날짜 업데이트");
+                keyword.setDate(getCurrentDate());
+                keywordRepository.updateKeyword(keyword);
+                return;
+            }
+        }
         keywordRepository.insertKeyword(new Keyword(word,false,getCurrentDate()));
     }
 
     public void deleteKeyword(Keyword keyword){
         keywordRepository.deleteKeyword(keyword);
-    }
-
-    public void updateKeyword(Keyword keyword){
-        keywordRepository.updateKeyword(keyword);
     }
 
     // findKeywords
@@ -75,33 +76,19 @@ public class SearchViewModel extends ViewModel{
         keywordRepository.findKeywords(keyword);
     }
 
+    public void loadHistoryKeywordList(){
+        keywordList.setValue(keywordRepository.loadHistoryKeywordList());
+    }
+
     /*******************************************
      *  observeData
      *******************************************/
 
-    public void addAutoKeywords(List<Keyword> autoKeywords){
-        Log.d("검색","검색결과있음");
-        List<Keyword> temp = new ArrayList<>();
-        if(keywordList.getValue() != null){
-            temp = keywordList.getValue();
-        }
-        temp.addAll(autoKeywords);
-        keywordList.setValue(temp);
-    }
-
     public LiveData<ArrayList<Product>> getProductList(){
-        return productLiveData;
+        return ProductList;
     }
 
     public LiveData<List<Keyword>> getKeywordList() {
         return keywordList;
-    }
-
-    public LiveData<List<Keyword>> getKeywordHistroy() {
-        return keywordHistroy;
-    }
-
-    public LiveData<List<Keyword>> getKeywordAuto() {
-        return keywordAuto;
     }
 }

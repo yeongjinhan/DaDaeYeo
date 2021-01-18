@@ -1,5 +1,6 @@
 package com.hanyj96.dadaeyeo.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.google.firebase.storage.StorageReference;
 import com.hanyj96.dadaeyeo.di.GlideApp;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 
 public class BindingAdapters {
@@ -36,4 +38,9 @@ public class BindingAdapters {
         textView.setText(value + "원");
     }
 
+/*    @BindingAdapter("bind_date_format")
+    public static void setDateFormat(TextView textView, String date){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd");
+        textView.setText(simpleDateFormat.parse(date));
+    }*/
 }

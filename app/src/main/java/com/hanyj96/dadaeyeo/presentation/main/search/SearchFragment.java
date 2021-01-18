@@ -48,6 +48,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         return R.layout.fragment_search;
     }
 
+    /*******************************************
+     *  Lifecycle
+     *******************************************/
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -56,7 +60,21 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         initSearchKeywordListView();
         observeProductList();
         observeKeywordList();
-        observeAutoKeyword();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // 프래그먼트를 벗어나면 키보드 숨김
+        imm.hideSoftInputFromWindow(dataBinding.editTextInputWord.getWindowToken(), 0);
+        searchRecyclerAdapter.clearItems();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dataBinding.editTextInputWord.setFocusableInTouchMode(true);
+        dataBinding.editTextInputWord.requestFocus();
     }
 
     /*******************************************
@@ -118,12 +136,16 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchViewModel.findKeywords(s.toString());
+                if(!s.toString().isEmpty() && s.toString().length() >= 1){
+                    searchViewModel.findKeywords(s.toString());
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.toString().isEmpty() || s.toString().length() <= 1){
+                    searchViewModel.loadHistoryKeywordList();
+                }
             }
         });
     }
@@ -148,31 +170,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
                 observe(getViewLifecycleOwner(), keywords -> searchListAdapter.updateItems(keywords));
     }
 
-    private void observeAutoKeyword(){
-        searchViewModel.getKeywordAuto().
-                observe(getViewLifecycleOwner(), keywords -> searchViewModel.addAutoKeywords(keywords));
-    }
-
     private void Search(String keyword){
         searchViewModel.searchProduct(keyword);
         // 검색결과 레이아웃에 포커스 삽입
         dataBinding.mainSearchLayout.setFocusableInTouchMode(true);
         dataBinding.mainSearchLayout.requestFocus();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // 프래그먼트를 벗어나면 키보드 숨김
-        imm.hideSoftInputFromWindow(dataBinding.editTextInputWord.getWindowToken(), 0);
-        searchRecyclerAdapter.clearItems();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        dataBinding.editTextInputWord.setFocusableInTouchMode(true);
-        dataBinding.editTextInputWord.requestFocus();
     }
 
     /*******************************************

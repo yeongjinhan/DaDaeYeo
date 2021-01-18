@@ -1,7 +1,10 @@
 package com.hanyj96.dadaeyeo.data.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 import com.hanyj96.dadaeyeo.database.local.KeywordDao;
@@ -12,18 +15,19 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 @Singleton
 public class KeywordRepository {
     private KeywordDao keywordDao;
     private KeywordDataSource keywordDataSource;
-    private LiveData<List<Keyword>> historyKeywordList;
     private LiveData<List<Keyword>> autoKeywordList;
 
     @Inject
     public KeywordRepository(KeywordDao keywordDao){
         this.keywordDao = keywordDao;
         this.keywordDataSource = new KeywordDataSource();
-        this.historyKeywordList = keywordDao.getAll();
         this.autoKeywordList = keywordDataSource.getAutoKeywords();
     }
 
@@ -39,8 +43,12 @@ public class KeywordRepository {
         keywordDao.update(keyword);
     }
 
+    public List<Keyword> loadHistoryKeywordList(){
+        return keywordDao.getAllList();
+    }
+
     public LiveData<List<Keyword>> getHistoryKeywordList(){
-        return historyKeywordList;
+        return keywordDao.getAllLiveData();
     }
 
     public LiveData<List<Keyword>> getAutoKeywordList(){

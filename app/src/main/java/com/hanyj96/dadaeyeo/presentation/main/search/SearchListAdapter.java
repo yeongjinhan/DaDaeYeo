@@ -25,10 +25,9 @@ public class SearchListAdapter extends BaseAdapter {
         this.onDeleteKeywordClickListener = onDeleteKeywordClickListener;
     }
 
-    public void updateItems(List<Keyword> newitems){
-        Log.d("리스트어댑터","아이템업데이트 size : " + newitems.size());
+    public void updateItems(List<Keyword> keywords){
         this.keywords.clear();
-        this.keywords = newitems;
+        this.keywords = keywords;
         notifyDataSetChanged();
     }
 
