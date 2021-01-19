@@ -1,10 +1,10 @@
-package com.hanyj96.dadaeyeo.presentation.main.cataegory;
+package com.hanyj96.dadaeyeo.presentation.main.category;
 
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.databinding.FragmentCataegoryBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
 
-public class CataegoryFragment extends BaseFragment<FragmentCataegoryBinding> {
+public class CategoryFragment extends BaseFragment<FragmentCataegoryBinding> {
 
     @Override
     protected int getFragmentLayout() {

@@ -1,5 +1,7 @@
 package com.hanyj96.dadaeyeo.data.model.products;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
@@ -59,5 +61,10 @@ public class Product implements Serializable {
 
     public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return super.equals(obj);
     }
 }

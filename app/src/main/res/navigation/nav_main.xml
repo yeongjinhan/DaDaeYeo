@@ -9,7 +9,7 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/cataegoryFragment"
-        android:name="com.hanyj96.dadaeyeo.presentation.main.cataegory.CataegoryFragment"
+        android:name="com.hanyj96.dadaeyeo.presentation.main.category.CategoryFragment"
         android:label="CataegoryFragment" />
     <fragment
         android:id="@+id/searchFragment"

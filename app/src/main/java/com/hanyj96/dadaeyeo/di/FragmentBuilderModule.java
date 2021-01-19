@@ -1,6 +1,6 @@
 package com.hanyj96.dadaeyeo.di;
 
-import com.hanyj96.dadaeyeo.presentation.main.cataegory.CataegoryFragment;
+import com.hanyj96.dadaeyeo.presentation.main.category.CategoryFragment;
 import com.hanyj96.dadaeyeo.presentation.main.home.HomeFragment;
 import com.hanyj96.dadaeyeo.presentation.main.myinfo.MyinfoFragment;
 import com.hanyj96.dadaeyeo.presentation.main.myrent.MyrentFragment;
@@ -16,7 +16,7 @@ abstract class FragmentBuilderModule {
     abstract HomeFragment contributeHomeFragemnt();
 
     @ContributesAndroidInjector
-    abstract CataegoryFragment contributeCataegoryFragment();
+    abstract CategoryFragment contributeCataegoryFragment();
 
     @ContributesAndroidInjector
     abstract MyinfoFragment contributeMyinfoFragment();

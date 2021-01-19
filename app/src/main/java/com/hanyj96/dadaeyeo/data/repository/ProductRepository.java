@@ -1,12 +1,11 @@
 package com.hanyj96.dadaeyeo.data.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.data.model.products.userProduct;
 import com.hanyj96.dadaeyeo.database.local.ProductDao;
-import com.hanyj96.dadaeyeo.database.remote.ProductsDataSource;
+import com.hanyj96.dadaeyeo.database.remote.SearchProductsDataSource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +19,8 @@ public class ProductRepository {
     private LiveData<List<String>> userProductHistoryList;
     private LiveData<List<String>> userProductWishList;
     private LiveData<ArrayList<Product>> userProductList;
-    private LiveData<ArrayList<Product>> searchProductList;
-    private ProductsDataSource productsDataSource;
+
+    private SearchProductsDataSource searchProductsDataSource;
 
     @Inject
     ProductRepository(ProductDao productDao){
@@ -30,9 +29,9 @@ public class ProductRepository {
         this.userProductHistoryList = productDao.getUserProductHistoryList();
         // 찜한 제품 기록
         this.userProductWishList = productDao.getUserProductWishList();
-        this.productsDataSource = new ProductsDataSource();
-        this.userProductList = productsDataSource.getUserProductList();
-        this.searchProductList = productsDataSource.findAll();
+        this.searchProductsDataSource = new SearchProductsDataSource();
+        this.userProductList = searchProductsDataSource.getUserProductList();
+
     }
 
     /*******************************************
@@ -58,14 +57,10 @@ public class ProductRepository {
     }
 
     /*******************************************
-     *  ProductsDataSource
+     *  SearchProductsDataSource
      *******************************************/
 
-    public void searchProductByName(String word){
-        productsDataSource.SearchProductByName(word);
-    }
-
-    public void searchProductByID(List<String> productID) { productsDataSource.searchProductByID(productID); }
+    public void searchProductByID(List<String> productID) { searchProductsDataSource.searchProductByID(productID); }
 
     /*******************************************
      *  observeData
@@ -81,10 +76,6 @@ public class ProductRepository {
 
     public LiveData<ArrayList<Product>> getUserProductList(){
         return userProductList;
-    }
-
-    public LiveData<ArrayList<Product>> getSearchProductList(){
-        return searchProductList;
     }
 
 }

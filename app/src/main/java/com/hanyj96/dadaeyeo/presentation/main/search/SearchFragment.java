@@ -67,7 +67,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         super.onPause();
         // 프래그먼트를 벗어나면 키보드 숨김
         imm.hideSoftInputFromWindow(dataBinding.editTextInputWord.getWindowToken(), 0);
-        searchRecyclerAdapter.clearItems();
     }
 
     @Override
@@ -161,8 +160,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
      *******************************************/
 
     private void observeProductList(){
-        searchViewModel.getProductList().
-                observe(getViewLifecycleOwner(), products -> searchRecyclerAdapter.updateItems(products));
+        searchViewModel.getPagedListLiveData().
+                observe(getViewLifecycleOwner(), products -> searchRecyclerAdapter.submitList(products));
     }
 
     private void observeKeywordList(){
@@ -170,8 +169,14 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
                 observe(getViewLifecycleOwner(), keywords -> searchListAdapter.updateItems(keywords));
     }
 
+    private void reObserveProductList(){
+        searchViewModel.searchProductByText(this, null);
+        observeProductList();
+    }
+
     private void Search(String keyword){
-        searchViewModel.searchProduct(keyword);
+        searchViewModel.searchProductByText(this, keyword.toLowerCase());
+        observeProductList();
         // 검색결과 레이아웃에 포커스 삽입
         dataBinding.mainSearchLayout.setFocusableInTouchMode(true);
         dataBinding.mainSearchLayout.requestFocus();

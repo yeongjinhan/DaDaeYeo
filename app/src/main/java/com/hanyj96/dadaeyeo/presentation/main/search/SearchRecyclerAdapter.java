@@ -2,34 +2,21 @@ package com.hanyj96.dadaeyeo.presentation.main.search;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.ProductItem_type1;
 import com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener;
 
-import java.util.ArrayList;
 
-public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.SearchRecyclerViewHolder>  {
-    private ArrayList<Product> products;
+public class SearchRecyclerAdapter extends PagedListAdapter<Product, SearchRecyclerAdapter.SearchRecyclerViewHolder> {
     private OnProductClickListener onProductClickListener;
 
     public SearchRecyclerAdapter(OnProductClickListener onProductClickListener){
-        this.products = new ArrayList<>();
+        super(diffCallback);
         this.onProductClickListener = onProductClickListener;
-    }
-
-    public void updateItems(ArrayList<Product> products){
-        this.products.clear();
-        this.products = products;
-        notifyDataSetChanged();
-    }
-
-    public void clearItems(){
-        this.products.clear();
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,16 +29,23 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull SearchRecyclerViewHolder holder, int position) {
-        Product product = products.get(position);
+        Product product = getItem(position);
         if(product != null){
             holder.bindData(product);
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return products.size();
-    }
+    private static DiffUtil.ItemCallback<Product> diffCallback = new DiffUtil.ItemCallback<Product>() {
+        @Override
+        public boolean areItemsTheSame(Product oldProduct, Product newProduct) {
+            return oldProduct.getProductID().equals(newProduct.getProductID());
+        }
+
+        @Override
+        public boolean areContentsTheSame(Product oldProduct, @NonNull Product newProduct) {
+            return oldProduct.equals(newProduct);
+        }
+    };
 
     class SearchRecyclerViewHolder extends RecyclerView.ViewHolder{
         private ProductItem_type1 productItem_type1;

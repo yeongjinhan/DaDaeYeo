@@ -50,6 +50,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
     implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
+    /* 페이징 라이브러리 */
+    def paging_version = "2.1.2"
+        implementation "androidx.paging:paging-runtime:$paging_version"
+        testImplementation "androidx.paging:paging-common:$paging_version"
     /* dagger2 라이브러리 */
     def dagger2_version = '2.28'
         implementation "com.google.dagger:dagger:$dagger2_version"			// dagger 라이브러리
