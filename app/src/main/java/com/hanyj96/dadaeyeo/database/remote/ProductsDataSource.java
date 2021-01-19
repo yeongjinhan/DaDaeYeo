@@ -12,21 +12,24 @@ import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class ProductsDataSource {
     private static final String TAG = "ProductsDataSource";
 
     private MutableLiveData<ArrayList<Product>> ProductList = new MutableLiveData<>();
-    private FirebaseFirestore firebaseFirestore;
+    private MutableLiveData<ArrayList<Product>> UserProductList = new MutableLiveData<>();
 
+    private FirebaseFirestore firebaseFirestore;
     public LiveData<ArrayList<Product>> findAll() { return ProductList; }
+    public LiveData<ArrayList<Product>> getUserProductList() { return UserProductList; }
 
     public ProductsDataSource(){
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
-    public void SearchProduct(String word){
+    public void SearchProductByName(String word){
         ArrayList<Product> result = new ArrayList<>();
         CollectionReference Ref = firebaseFirestore.collection("Products");
         Ref.orderBy("productName").startAt(word).endAt(word + '\uf8ff')
@@ -45,5 +48,26 @@ public class ProductsDataSource {
                     }
                 });
 
+    }
+
+    public void searchProductByID(List<String> productID){
+        ArrayList<Product> result = new ArrayList<>();
+        CollectionReference Ref = firebaseFirestore.collection("Products");
+        Log.d("제품검색", productID.toString());
+        Ref.whereIn("productID",productID)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                            result.add(document.toObject(Product.class));
+                        }
+                        if(result != null){
+                            UserProductList.setValue(result);
+                        }
+                    }else{
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
     }
 }

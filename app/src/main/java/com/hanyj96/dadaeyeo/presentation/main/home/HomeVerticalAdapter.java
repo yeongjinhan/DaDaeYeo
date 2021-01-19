@@ -14,11 +14,16 @@ public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapte
     private ArrayList<HomeItem> homeItems;
     private Context context;
 
-    public HomeVerticalAdapter(Context context, ArrayList<HomeItem> homeItems){
+    public HomeVerticalAdapter(Context context){
         this.context = context;
-        this.homeItems = homeItems;
+        this.homeItems = new ArrayList<>();
     }
 
+    public void updateItems(ArrayList<HomeItem> homeItems){
+        this.homeItems.clear();
+        this.homeItems = homeItems;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override

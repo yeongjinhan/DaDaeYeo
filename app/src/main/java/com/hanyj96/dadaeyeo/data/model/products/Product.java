@@ -1,13 +1,6 @@
 package com.hanyj96.dadaeyeo.data.model.products;
 
-import androidx.annotation.Nullable;
-
-import com.google.firebase.firestore.Exclude;
-import com.google.firebase.firestore.ServerTimestamp;
-
 import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.util.Date;
 
 public class Product implements Serializable {
     private int mainCategory;

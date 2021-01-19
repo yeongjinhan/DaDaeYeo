@@ -84,7 +84,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
     // 검색결과 RecyclerView 주입
     private void initSearchRecyclerView(){
         searchRecyclerAdapter = new SearchRecyclerAdapter(this);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(dataBinding.mainSearchRecyclerview.getContext(),2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         dataBinding.mainSearchRecyclerview.setLayoutManager(gridLayoutManager);
         dataBinding.mainSearchRecyclerview.setHasFixedSize(true);
         dataBinding.mainSearchRecyclerview.setAdapter(searchRecyclerAdapter);
@@ -185,6 +185,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
     @Override
     public void onProductClick(Product product) {
         Log.d("Product",product.getProductName());
+        searchViewModel.insertUserProduct(product.getProductID());
     }
 
     @Override

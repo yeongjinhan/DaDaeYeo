@@ -5,9 +5,11 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.data.model.HomeItem;
+import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.FragmentHomeBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
 
@@ -23,28 +25,59 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         return R.layout.fragment_home;
     }
 
+    /*******************************************
+     *  Lifecycle
+     *******************************************/
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initRecyclerAdapter();
-        loadHomeItemData();
-        Log.d("홈뷰모델","홈 프레그먼트 생성");
+        observeHomeItemList();
+        observeProductHistoryList();
+        observeProductList();
     }
+
+    /*******************************************
+     *  initViews
+     *******************************************/
 
     private void initRecyclerAdapter(){
-        Log.d("HomeFragment","Init RecyclerView Adapter");
-        //homeViewModel.getHomeItemLiveData().observe(getViewLifecycleOwner(),HomeItemUpdateObserver);
+        homeVerticalAdapter = new HomeVerticalAdapter(getContext());
+        dataBinding.mainHomeRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        dataBinding.mainHomeRecyclerview.setHasFixedSize(true);
+        dataBinding.mainHomeRecyclerview.setAdapter(homeVerticalAdapter);
     }
 
-    /*Observer<ArrayList<HomeItem>> HomeItemUpdateObserver = new Observer<ArrayList<HomeItem>>() {
-        @Override
-        public void onChanged(ArrayList<HomeItem> homeItems) {
-            homeVerticalAdapter = new HomeVerticalAdapter(dataBinding.mainHomeRecyclerview.getContext(), homeItems);
-            dataBinding.mainHomeRecyclerview.setAdapter(homeVerticalAdapter);
-        }
-    };*/
+    /*******************************************
+     *  observeDataList
+     *******************************************/
 
-    private void loadHomeItemData(){
-
+    private void observeHomeItemList(){
+        homeViewModel.getHomeItemList().
+                observe(getViewLifecycleOwner(), homeItems -> {
+                    Log.d("홈아이템","홈아이템 업데이트");
+                    homeVerticalAdapter.updateItems(homeItems);
+                });
     }
+
+    private void observeProductHistoryList(){
+        homeViewModel.getProductHistoryList().
+                observe(getViewLifecycleOwner(), productID -> {
+                    Log.d("제품클릭기록","기록 업데이트");
+                    if(!productID.isEmpty()){
+                        homeViewModel.searchProductByID(productID);
+                    }
+                });
+    }
+
+    private void observeProductList(){
+        homeViewModel.getProductByIdList().observe(getViewLifecycleOwner(), products -> {
+            Log.d("제품검색기록","기록 업데이트");
+            ArrayList<HomeItem> homeItems = new ArrayList<>();
+            homeItems.add(new HomeItem(0,"고객님이 보신 제품들", products));
+            homeViewModel.setHomeItemList(homeItems);
+        });
+    }
+
 }

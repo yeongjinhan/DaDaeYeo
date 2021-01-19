@@ -7,6 +7,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.hanyj96.dadaeyeo.data.model.products.Product;
+import com.hanyj96.dadaeyeo.data.model.products.userProduct;
 import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 import com.hanyj96.dadaeyeo.data.repository.KeywordRepository;
 import com.hanyj96.dadaeyeo.data.repository.ProductRepository;
@@ -17,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.hanyj96.dadaeyeo.utils.HelperClass.getCurrentDate;
+import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCT_HISTORY;
 
 public class SearchViewModel extends ViewModel{
     private static String TAG = "SearchViewModel";
@@ -32,7 +34,7 @@ public class SearchViewModel extends ViewModel{
     SearchViewModel(ProductRepository productRepository, KeywordRepository keywordRepository){
         this.productRepository = productRepository;
         this.keywordRepository = keywordRepository;
-        ProductList = productRepository.getProducts();
+        ProductList = productRepository.getSearchProductList();
         // 키워드
         keywordList.addSource(keywordRepository.getHistoryKeywordList(),
                 value-> keywordList.setValue(value));
@@ -45,7 +47,11 @@ public class SearchViewModel extends ViewModel{
      *******************************************/
 
     public void searchProduct(String keyword){
-        productRepository.searchProductforName(keyword);
+        productRepository.searchProductByName(keyword);
+    }
+
+    public void insertUserProduct(String productId){
+        productRepository.insertUserProduct(new userProduct(PRODUCT_HISTORY,productId,getCurrentDate()));
     }
 
     /*******************************************

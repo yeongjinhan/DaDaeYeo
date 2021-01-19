@@ -9,8 +9,8 @@
     </data>
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
@@ -21,10 +21,10 @@
 
         <ImageView
             android:id="@+id/item1_img"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_weight="1"
-            app:bind_product_img="@{data.productID}"/>
+            app:bind_product_img="@{data.productID}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{data.productName}"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -48,9 +48,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#7CB1F3"
-                android:textSize="15sp"
+                android:textSize="9sp"
                 android:textStyle="bold"
-                app:bind_String_price="@{data.productPrice}"/>
+                app:bind_String_price="@{data.productPrice}" />
         </LinearLayout>
     </LinearLayout>
 </layout>
