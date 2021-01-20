@@ -15,7 +15,6 @@ public class ProductsDataSourceFactory extends DataSource.Factory<Integer, Produ
     private int mainCategory;               // 메인 카테고리
     private int subCategory;                // 서브 카테고리
     private String searchText;              // 텍스트로 검색
-    private Query initialQuery;             // 검색 쿼리
     private CollectionReference productsRef;
 
     public ProductsDataSourceFactory(int searchType, String searchText, int mainCategory, int subCategory, CollectionReference productsRef) {

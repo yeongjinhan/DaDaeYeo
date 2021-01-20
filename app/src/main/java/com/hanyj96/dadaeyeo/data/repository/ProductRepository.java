@@ -49,6 +49,7 @@ public class ProductRepository {
                     return;
                 }
             }
+            productDao.insert(userProduct);
         }
     }
 

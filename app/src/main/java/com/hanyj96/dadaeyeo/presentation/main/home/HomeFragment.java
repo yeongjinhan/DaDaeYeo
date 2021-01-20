@@ -5,6 +5,9 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.data.model.HomeItem;
 import com.hanyj96.dadaeyeo.databinding.FragmentHomeBinding;
@@ -24,7 +27,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Inject HomeViewModel homeViewModel;
     private HomeVerticalAdapter homeVerticalAdapter;
     private HomeViewPagerAdapter homeViewPagerAdapter;
-    Disposable disposablel;
+    Disposable disposable;
     @Override
     protected int getFragmentLayout() {
         return R.layout.fragment_home;
@@ -39,6 +42,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         super.onActivityCreated(savedInstanceState);
         initRecyclerAdapter();
         initViewPagerAdapter();
+        initViewPagerIndicator();
         observeEventIDList();
         observeHomeItemList();
         observeProductHistoryList();
@@ -50,13 +54,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onStop() {
         super.onStop();
-        disposablel.dispose();
+        disposable.dispose();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        disposablel.dispose();
+        disposable.dispose();
     }
 
     /*******************************************
@@ -73,6 +77,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private void initViewPagerAdapter(){
         homeViewPagerAdapter = new HomeViewPagerAdapter();
         dataBinding.mainHomeEventPage.setAdapter(homeViewPagerAdapter);
+    }
+
+    private void initViewPagerIndicator(){
+        dataBinding.mainHomeEventIndicator.setWithViewPager2(dataBinding.mainHomeEventPage,true);
     }
 
     /*******************************************
@@ -114,8 +122,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     private void observeViewPager(){
         Log.d("뷰페이저구독","구독중");
-        if(disposablel == null){
-            disposablel = Observable.interval(5,TimeUnit.SECONDS)
+        if(disposable == null){
+            disposable = Observable.interval(5,TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(it->{

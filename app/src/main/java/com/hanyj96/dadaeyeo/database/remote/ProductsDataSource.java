@@ -52,7 +52,7 @@ public class ProductsDataSource extends PageKeyedDataSource<Integer, Product>{
                 }
                 callback.onResult(initialProductList, null, pageNumber);
                 int initialQuerySnapshotSize = initialQuerySnapshot.size() - 1;
-                if(initialQuerySnapshotSize != 1) {
+                if(initialQuerySnapshotSize != -1) {
                     lastVisible = initialQuerySnapshot.getDocuments().get(initialQuerySnapshotSize);
                 }
             } else{
