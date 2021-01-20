@@ -12,13 +12,44 @@
         android:layout_height="match_parent"
         android:background="#DADADA">
 
+        <LinearLayout
+            android:id="@+id/main_home_top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:elevation="10dp"/>
+
+            <FrameLayout
+                android:id="@+id/event_page_layout"
+                android:layout_width="match_parent"
+                android:layout_height="204dp"
+                android:background="#FFFFFF">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/main_home_event_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_home_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/main_home_top_layout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

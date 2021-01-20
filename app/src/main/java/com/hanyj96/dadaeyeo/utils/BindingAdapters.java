@@ -9,14 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
-import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.hanyj96.dadaeyeo.di.GlideApp;
-
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
 
 public class BindingAdapters {
     // ImageView Glide Binding
@@ -28,6 +24,17 @@ public class BindingAdapters {
         GlideApp.with(context)
                 .load(storageReference)
                 .override(200,200)
+                .into(view);
+    }
+
+    @BindingAdapter("bind_event_img")
+    public static void setEventImageView(ImageView view, String eid){
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference().child("root/Events/" + eid + ".jpg");
+        Context context = view.getContext();
+        GlideApp.with(context)
+                .load(storageReference)
+                //.override(200,200)
                 .into(view);
     }
 

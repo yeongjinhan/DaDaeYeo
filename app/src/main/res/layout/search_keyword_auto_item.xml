@@ -8,7 +8,7 @@
             type="com.hanyj96.dadaeyeo.data.model.user.Keyword" />
         <variable
             name="keywordClickListener"
-            type="com.hanyj96.dadaeyeo.presentation.main.search.OnKeywordClickListener" />
+            type="com.hanyj96.dadaeyeo.presentation.main.search.SearchListAdapter.OnKeywordClickListener" />
 
     </data>
 

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.ProductItem_type1;
-import com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener;
 
 
 public class SearchRecyclerAdapter extends PagedListAdapter<Product, SearchRecyclerAdapter.SearchRecyclerViewHolder> {
@@ -59,5 +58,9 @@ public class SearchRecyclerAdapter extends PagedListAdapter<Product, SearchRecyc
             productItem_type1.setProduct(product);
             productItem_type1.setOnProductClickListener(onProductClickListener);
         }
+    }
+
+    public interface OnProductClickListener {
+        void onProductClick(Product product);
     }
 }

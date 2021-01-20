@@ -8,7 +8,7 @@
             type="com.hanyj96.dadaeyeo.data.model.products.Product" />
         <variable
             name="onProductClickListener"
-            type="com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener" />
+            type="com.hanyj96.dadaeyeo.presentation.main.search.SearchRecyclerAdapter.OnProductClickListener" />
     </data>
 
     <LinearLayout

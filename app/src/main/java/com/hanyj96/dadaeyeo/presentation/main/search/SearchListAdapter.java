@@ -62,6 +62,15 @@ public class SearchListAdapter extends BaseAdapter {
             return searchList_item.getRoot();
         }
     }
+
+    public interface OnKeywordClickListener {
+        void ClickKeyword(Keyword keyword);
+    }
+
+    public interface OnDeleteKeywordClickListener {
+        void deleteKeyword(Keyword keyword);
+    }
+
 }
 
 

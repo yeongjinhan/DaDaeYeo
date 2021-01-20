@@ -8,35 +8,22 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.data.model.user.Keyword;
-import com.hanyj96.dadaeyeo.database.local.KeywordDB;
 import com.hanyj96.dadaeyeo.databinding.FragmentSearchBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
-import com.hanyj96.dadaeyeo.presentation.main.OnProductClickListener;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         implements
-        OnProductClickListener,
-        OnKeywordClickListener,
-        OnDeleteKeywordClickListener
+        SearchRecyclerAdapter.OnProductClickListener,
+        SearchListAdapter.OnKeywordClickListener,
+        SearchListAdapter.OnDeleteKeywordClickListener
 {
     @Inject SearchViewModel searchViewModel;
     private InputMethodManager imm;

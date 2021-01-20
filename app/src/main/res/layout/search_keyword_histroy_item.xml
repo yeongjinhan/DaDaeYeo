@@ -8,10 +8,10 @@
             type="com.hanyj96.dadaeyeo.data.model.user.Keyword" />
         <variable
             name="keywordClickListener"
-            type="com.hanyj96.dadaeyeo.presentation.main.search.OnKeywordClickListener" />
+            type="com.hanyj96.dadaeyeo.presentation.main.search.SearchListAdapter.OnKeywordClickListener" />
         <variable
             name="deleteKeywordClickListener"
-            type="com.hanyj96.dadaeyeo.presentation.main.search.OnDeleteKeywordClickListener" />
+            type="com.hanyj96.dadaeyeo.presentation.main.search.SearchListAdapter.OnDeleteKeywordClickListener" />
 
     </data>
 
