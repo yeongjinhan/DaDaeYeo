@@ -5,7 +5,7 @@
     <data class="Recycler_View_Type1_DataBinding">
         <variable
             name="data"
-            type="com.hanyj96.dadaeyeo.data.model.HomeItem" />
+            type="com.hanyj96.dadaeyeo.data.model.contents.HomeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:orientation="vertical"
             android:paddingLeft="10dp"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
-                    android:text="@{data.title}"
+                    android:text="@{data.itemTitle}"
                     android:textAlignment="textStart"
                     android:textSize="18sp"
                     android:textStyle="bold"

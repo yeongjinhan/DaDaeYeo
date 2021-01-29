@@ -7,108 +7,129 @@
             name="ViewModel"
             type="com.hanyj96.dadaeyeo.presentation.main.home.HomeViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DADADA">
+        android:background="#DADADA"
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
-            android:id="@+id/main_home_top_layout"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:id="@+id/main_home_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="88dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="3dp">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_edit_text"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:text="@string/string_input_text"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/main_home_center_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="88dp"
-                android:background="#FFFFFF"
-                android:elevation="10dp"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <FrameLayout
+                    android:id="@+id/event_page_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingBottom="3dp">
+                    android:layout_height="220dp"
+                    android:background="#FFFFFF">
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/logo" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_edit_text"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp">
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
-
-                    <TextView
-                        android:id="@+id/textView4"
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/main_home_event_page"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:text="@string/string_input_text"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:layout_height="match_parent" />
+
+                    <io.github.vejei.viewpagerindicator.indicator.CircleIndicator
+                        android:id="@+id/main_home_event_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="10dp"
+                        android:scrollIndicators="none"
+                        app:indicatorColor="#80ffffff"
+                        app:indicatorGap="8dp"
+                        app:indicatorRadius="5dp"
+                        app:indicatorSelectedColor="#ffffff" />
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/main_home_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="10dp"
+                    tools:layout_editor_absoluteY="204dp" />
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/event_page_layout"
-                android:layout_width="match_parent"
-                android:layout_height="204dp"
-                android:background="#FFFFFF">
+        </androidx.core.widget.NestedScrollView>
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/main_home_event_page"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
-                <io.github.vejei.viewpagerindicator.indicator.CircleIndicator
-                    android:id="@+id/main_home_event_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="10dp"
-                    android:scrollIndicators="none"
-                    app:indicatorColor="#80ffffff"
-                    app:indicatorGap="8dp"
-                    app:indicatorRadius="5dp"
-                    app:indicatorSelectedColor="#ffffff" />
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_home_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_home_top_layout" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

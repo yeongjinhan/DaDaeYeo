@@ -2,7 +2,6 @@ package com.hanyj96.dadaeyeo.presentation.main.search;
 
 import android.util.Log;
 
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -18,13 +17,13 @@ import com.hanyj96.dadaeyeo.data.repository.KeywordRepository;
 import com.hanyj96.dadaeyeo.data.repository.ProductRepository;
 import com.hanyj96.dadaeyeo.database.remote.ProductsDataSourceFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_COLLECTION;
+import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_PAGED_LIST_CONFIG;
 import static com.hanyj96.dadaeyeo.utils.Constants.SEARCH_TYPE_NAME;
 import static com.hanyj96.dadaeyeo.utils.HelperClass.getCurrentDate;
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCT_HISTORY;
@@ -46,7 +45,7 @@ public class SearchViewModel extends ViewModel{
     @Inject
     SearchViewModel(ProductRepository productRepository,
                     KeywordRepository keywordRepository,
-                    PagedList.Config config,
+                    @Named(PRODUCTS_PAGED_LIST_CONFIG) PagedList.Config config,
                     @Named(PRODUCTS_COLLECTION) CollectionReference productsRef){
         this.productRepository = productRepository;
         this.keywordRepository = keywordRepository;

@@ -1,6 +1,10 @@
 <resources>
     <!-- 앱 이름 -->
     <string name="app_name">다대여</string>
+    <!-- behavior-->
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+    </string>
     <!--           *****    mainActivity    *****           -->
     <!-- 하단바 -->
     <string name="string_bottom_menu_cataegory">카테고리</string>

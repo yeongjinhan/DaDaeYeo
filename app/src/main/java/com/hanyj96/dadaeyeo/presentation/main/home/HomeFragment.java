@@ -6,10 +6,8 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.hanyj96.dadaeyeo.R;
-import com.hanyj96.dadaeyeo.data.model.HomeItem;
+import com.hanyj96.dadaeyeo.data.model.contents.HomeItem;
 import com.hanyj96.dadaeyeo.databinding.FragmentHomeBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
 
@@ -45,8 +43,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         initViewPagerIndicator();
         observeEventIDList();
         observeHomeItemList();
-        observeProductHistoryList();
-        observeProductList();
+        //observeProductHistoryList();
         homeViewModel.getAllEventIds();
         observeViewPager();
     }
@@ -88,30 +85,23 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
      *******************************************/
 
     private void observeHomeItemList(){
-        homeViewModel.getHomeItemList().
+        homeViewModel.getHomItemList().
                 observe(getViewLifecycleOwner(), homeItems -> {
                     Log.d("홈아이템","홈아이템 업데이트");
-                    homeVerticalAdapter.updateItems(homeItems);
+                    homeVerticalAdapter.submitList(homeItems);
                 });
     }
 
     private void observeProductHistoryList(){
         homeViewModel.getProductHistoryList().
                 observe(getViewLifecycleOwner(), productID -> {
-                    Log.d("제품클릭기록","기록 업데이트");
                     if(!productID.isEmpty()){
-                        homeViewModel.searchProductByID(productID);
+                        Log.d("유저가 클릭한 제품 리스트", productID.toString());
+                        /*ArrayList<HomeItem> homeItems = new ArrayList<>();
+                        homeItems.add(new HomeItem(0,"고객님이 보신 제품들", productID));
+                        homeViewModel.setHomeItemList(homeItems);*/
                     }
                 });
-    }
-
-    private void observeProductList(){
-        homeViewModel.getProductByIdList().observe(getViewLifecycleOwner(), products -> {
-            Log.d("제품검색기록","기록 업데이트");
-            ArrayList<HomeItem> homeItems = new ArrayList<>();
-            homeItems.add(new HomeItem(0,"고객님이 보신 제품들", products));
-            homeViewModel.setHomeItemList(homeItems);
-        });
     }
 
     private void observeEventIDList(){
@@ -138,8 +128,4 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                     });
         }
     }
-
-    /*******************************************
-     *  ViewPagerCount
-     *******************************************/
 }

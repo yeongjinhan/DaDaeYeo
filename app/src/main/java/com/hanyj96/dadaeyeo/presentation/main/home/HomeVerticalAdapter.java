@@ -4,24 +4,26 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.hanyj96.dadaeyeo.data.model.HomeItem;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.hanyj96.dadaeyeo.data.model.contents.HomeItem;
+import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.Recycler_View_Type1_DataBinding;
-import java.util.ArrayList;
 
-public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapter.VerticalItemType1ViewHolder> {
-    private ArrayList<HomeItem> homeItems;
+public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVerticalAdapter.VerticalItemType1ViewHolder> {
     private Context context;
 
     public HomeVerticalAdapter(Context context){
+        super(diffCallback);
         this.context = context;
-        this.homeItems = new ArrayList<>();
     }
 
-    public void updateItems(ArrayList<HomeItem> homeItems){
-        this.homeItems.clear();
-        this.homeItems = homeItems;
+    public void updateItems(){
         notifyDataSetChanged();
     }
 
@@ -35,16 +37,23 @@ public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapte
 
     @Override
     public void onBindViewHolder(@NonNull VerticalItemType1ViewHolder holder, int position) {
-        HomeItem homeItem = homeItems.get(position);
+        HomeItem homeItem = getItem(position);
         if(homeItem != null){
             holder.bindData(homeItem);
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return homeItems.size();
-    }
+    private static DiffUtil.ItemCallback<HomeItem> diffCallback = new DiffUtil.ItemCallback<HomeItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull HomeItem oldItem, @NonNull HomeItem newItem) {
+            return oldItem.getItemID().equals(newItem.getItemID());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull HomeItem oldItem, @NonNull HomeItem newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     class VerticalItemType1ViewHolder extends RecyclerView.ViewHolder{
         private Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding;
@@ -54,10 +63,20 @@ public class HomeVerticalAdapter extends RecyclerView.Adapter<HomeVerticalAdapte
         }
         void bindData(HomeItem homeItem){
             recycler_view_type1_dataBinding.setData(homeItem);
-            HomeHorizontalAdapter homeHorizontalAdapter = new HomeHorizontalAdapter(homeItem.getProducts());
+
+            Query query = FirebaseFirestore.getInstance()
+                    .collection("Products")
+                    .whereIn("productID",homeItem.getProductIDs())
+                    .limit(10);
+            FirestoreRecyclerOptions<Product> options = new FirestoreRecyclerOptions.Builder<Product>()
+                    .setQuery(query, Product.class)
+                    .build();
+
+            HomeHorizontalAdapter homeHorizontalAdapter = new HomeHorizontalAdapter(options);
             recycler_view_type1_dataBinding.itemType1Recyclerview.setAdapter(homeHorizontalAdapter);
             recycler_view_type1_dataBinding.itemType1Recyclerview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             recycler_view_type1_dataBinding.itemType1Recyclerview.setHasFixedSize(true);
+            homeHorizontalAdapter.startListening();
         }
     }
 }

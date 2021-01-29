@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="204dp"
+            android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:bind_event_img="@{eventID}" />
     </LinearLayout>
