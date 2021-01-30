@@ -170,7 +170,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
     }
 
     /*******************************************
-     *  Listener
+     *  Event Listener
      *******************************************/
 
     // 제품 클릭 리스너

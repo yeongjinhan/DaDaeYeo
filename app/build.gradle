@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.android.support:design:29.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     /* 구글 파이어베이스 라이브러리 */
-    implementation 'com.google.firebase:firebase-firestore:22.0.1'
+    implementation 'com.google.firebase:firebase-firestore:22.0.2'
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-storage'
@@ -55,7 +55,7 @@ dependencies {
         implementation "androidx.paging:paging-runtime:$paging_version"
         testImplementation "androidx.paging:paging-common:$paging_version"
     /* dagger2 라이브러리 */
-    def dagger2_version = '2.28'
+    def dagger2_version = '2.31.2'
         //noinspection GradleDependency
         implementation "com.google.dagger:dagger:$dagger2_version"			// dagger 라이브러리
         implementation "com.google.dagger:dagger-android:$dagger2_version"		// dagger-android 라이브러리
@@ -65,25 +65,25 @@ dependencies {
     /* Hilt 라이브러리 */
     //implementation "com.google.dagger:hilt-android:2.28.1-alpha"
     //annotationProcessor 'com.google.dagger:hilt-android-compiler:2.28-alpha'
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
     /* ViewModel 라이브러리 */
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
     /* Room 라이브러리 */
-    implementation 'androidx.room:room-runtime:2.3.0-alpha04'
-    annotationProcessor 'androidx.room:room-compiler:2.3.0-alpha04'
-    implementation 'androidx.room:room-rxjava3:2.3.0-alpha04'
+    implementation 'androidx.room:room-runtime:2.3.0-beta01'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0-beta01'
+    implementation 'androidx.room:room-rxjava3:2.3.0-beta01'
     /* Gson 라이브러리 */
     implementation 'com.google.code.gson:gson:2.8.6'
     /* LiveData 라이브러리 */
     implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
     /* Navigation 라이브러리 */
-    def nav_version = "2.3.2"
+    def nav_version = "2.3.3"
         implementation "androidx.navigation:navigation-fragment:$nav_version"
         implementation "androidx.navigation:navigation-ui:$nav_version"
         implementation "androidx.navigation:navigation-runtime:$nav_version"
         implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-        implementation "androidx.navigation:navigation-compose:1.0.0-alpha05"
+        implementation "androidx.navigation:navigation-compose:1.0.0-alpha06"
     /* Retrofit2 라이브러리 */
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'

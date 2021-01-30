@@ -6,6 +6,9 @@
         <variable
             name="data"
             type="com.hanyj96.dadaeyeo.data.model.contents.HomeItem" />
+        <variable
+            name="onMoreClickListener"
+            type="com.hanyj96.dadaeyeo.presentation.main.home.HomeVerticalAdapter.OnMoreClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +42,8 @@
                     android:layout_weight="1"
                     android:text="@{data.itemTitle}"
                     android:textAlignment="textStart"
-                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RtlCompat" />
 
@@ -52,7 +56,8 @@
                     android:text="@string/string_item_type1_btn_more"
                     android:textAlignment="textEnd"
                     android:textColor="#03A9F4"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
+                    android:onClick="@{ (v) -> onMoreClickListener.onMoreClick(data.itemTitle)}"
                     tools:ignore="RtlCompat" />
 
             </LinearLayout>

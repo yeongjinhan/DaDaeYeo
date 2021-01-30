@@ -25,7 +25,8 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerAppCompatActivity;
 
 /* 메인 액티비티 */
-public class MainAcitivity extends DaggerAppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class MainAcitivity extends DaggerAppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener{
     @Inject MainViewModel mainViewModel;
     private AcitivityMainBinding mainBinding;
 

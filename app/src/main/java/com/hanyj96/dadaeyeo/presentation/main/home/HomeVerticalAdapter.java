@@ -1,6 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -17,14 +18,12 @@ import com.hanyj96.dadaeyeo.databinding.Recycler_View_Type1_DataBinding;
 
 public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVerticalAdapter.VerticalItemType1ViewHolder> {
     private Context context;
+    private OnMoreClickListener onClickListener;
 
-    public HomeVerticalAdapter(Context context){
+    public HomeVerticalAdapter(Context context, OnMoreClickListener onClickListener){
         super(diffCallback);
         this.context = context;
-    }
-
-    public void updateItems(){
-        notifyDataSetChanged();
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -63,6 +62,7 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
         }
         void bindData(HomeItem homeItem){
             recycler_view_type1_dataBinding.setData(homeItem);
+            recycler_view_type1_dataBinding.setOnMoreClickListener(onClickListener);
 
             Query query = FirebaseFirestore.getInstance()
                     .collection("Products")
@@ -78,5 +78,9 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
             recycler_view_type1_dataBinding.itemType1Recyclerview.setHasFixedSize(true);
             homeHorizontalAdapter.startListening();
         }
+    }
+
+    public interface OnMoreClickListener {
+        void onMoreClick(String title);
     }
 }

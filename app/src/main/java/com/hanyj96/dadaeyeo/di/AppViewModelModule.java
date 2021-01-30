@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.hanyj96.dadaeyeo.presentation.main.MainViewModel;
 import com.hanyj96.dadaeyeo.presentation.main.home.HomeViewModel;
+import com.hanyj96.dadaeyeo.presentation.main.productlist.ProductListViewModel;
 import com.hanyj96.dadaeyeo.presentation.main.search.SearchViewModel;
 import com.hanyj96.dadaeyeo.presentation.splash.SplashViewModel;
 
@@ -38,4 +39,9 @@ abstract class AppViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel.class)
     abstract ViewModel provideSearchViewModel(SearchViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductListViewModel.class)
+    abstract ViewModel provideProductListViewModel(ProductListViewModel viewModel);
 }

@@ -37,4 +37,5 @@ public class HomeHorizontalAdapter extends FirestoreRecyclerAdapter<Product, Hom
             item_type1_1DataBinding.setData(product);
         }
     }
+
 }

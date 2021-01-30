@@ -4,6 +4,7 @@ import com.hanyj96.dadaeyeo.presentation.main.category.CategoryFragment;
 import com.hanyj96.dadaeyeo.presentation.main.home.HomeFragment;
 import com.hanyj96.dadaeyeo.presentation.main.myinfo.MyinfoFragment;
 import com.hanyj96.dadaeyeo.presentation.main.myrent.MyrentFragment;
+import com.hanyj96.dadaeyeo.presentation.main.productlist.ProductListFragment;
 import com.hanyj96.dadaeyeo.presentation.main.search.SearchFragment;
 
 import dagger.Module;
@@ -12,6 +13,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 @SuppressWarnings("unused")
 abstract class FragmentBuilderModule {
+
     @ContributesAndroidInjector
     abstract HomeFragment contributeHomeFragemnt();
 
@@ -26,4 +28,7 @@ abstract class FragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract SearchFragment contributeSearchFragment();
+
+    @ContributesAndroidInjector
+    abstract ProductListFragment contributeProductListFragment();
 }

@@ -6,7 +6,15 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.hanyj96.dadaeyeo.presentation.main.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_productListFragment"
+            app:destination="@id/productListFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
     <fragment
         android:id="@+id/cataegoryFragment"
         android:name="com.hanyj96.dadaeyeo.presentation.main.category.CategoryFragment"
@@ -23,4 +31,8 @@
         android:id="@+id/myrentFragment"
         android:name="com.hanyj96.dadaeyeo.presentation.main.myrent.MyrentFragment"
         android:label="MyrentFragment" />
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.hanyj96.dadaeyeo.presentation.main.productlist.ProductListFragment"
+        android:label="ProductListFragment" />
 </navigation>

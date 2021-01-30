@@ -1,17 +1,18 @@
 package com.hanyj96.dadaeyeo.presentation.main.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hanyj96.dadaeyeo.R;
-import com.hanyj96.dadaeyeo.data.model.contents.HomeItem;
 import com.hanyj96.dadaeyeo.databinding.FragmentHomeBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -21,7 +22,9 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding>
+        implements
+        HomeVerticalAdapter.OnMoreClickListener {
     @Inject HomeViewModel homeViewModel;
     private HomeVerticalAdapter homeVerticalAdapter;
     private HomeViewPagerAdapter homeViewPagerAdapter;
@@ -31,13 +34,28 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         return R.layout.fragment_home;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("홈","onAttach");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("홈","onCreate");
+    }
+
     /*******************************************
      *  Lifecycle
      *******************************************/
 
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("홈","onActivityCreated");
         initRecyclerAdapter();
         initViewPagerAdapter();
         initViewPagerIndicator();
@@ -65,7 +83,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
      *******************************************/
 
     private void initRecyclerAdapter(){
-        homeVerticalAdapter = new HomeVerticalAdapter(getContext());
+        homeVerticalAdapter = new HomeVerticalAdapter(getContext(), this);
         dataBinding.mainHomeRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         dataBinding.mainHomeRecyclerview.setHasFixedSize(true);
         dataBinding.mainHomeRecyclerview.setAdapter(homeVerticalAdapter);
@@ -85,10 +103,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
      *******************************************/
 
     private void observeHomeItemList(){
-        homeViewModel.getHomItemList().
+        homeViewModel.getHomeItemList().
                 observe(getViewLifecycleOwner(), homeItems -> {
                     Log.d("홈아이템","홈아이템 업데이트");
                     homeVerticalAdapter.submitList(homeItems);
+
                 });
     }
 
@@ -127,5 +146,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                         }
                     });
         }
+    }
+
+    /*******************************************
+     *  Event Listener
+     *******************************************/
+
+    @Override
+    public void onMoreClick(String title) {
+        NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_productListFragment);
     }
 }

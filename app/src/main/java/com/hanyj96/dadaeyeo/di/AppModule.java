@@ -1,8 +1,12 @@
 package com.hanyj96.dadaeyeo.di;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.paging.PagedList;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.hanyj96.dadaeyeo.R;
+import com.hanyj96.dadaeyeo.presentation.main.MainAcitivity;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

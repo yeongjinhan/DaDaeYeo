@@ -3,20 +3,17 @@ package com.hanyj96.dadaeyeo.presentation.main.home;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.hanyj96.dadaeyeo.data.model.contents.HomeItem;
-import com.hanyj96.dadaeyeo.data.model.products.Product;
+import com.hanyj96.dadaeyeo.data.repository.AppDataRepository;
 import com.hanyj96.dadaeyeo.data.repository.ContentsRepository;
 import com.hanyj96.dadaeyeo.data.repository.ProductRepository;
-import com.hanyj96.dadaeyeo.database.remote.HomeItemsDataSource;
 import com.hanyj96.dadaeyeo.database.remote.HomeItemsDataSourceFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,11 +28,7 @@ public class HomeViewModel extends ViewModel {
 
     private LiveData<List<String>> productHistoryList;
     private LiveData<List<String>> eventIDList;
-
-    private LiveData<PagedList<HomeItem>> homItemList;
-    private PagedList.Config config;
-    private CollectionReference homeItemsRef;
-    private HomeItemsDataSourceFactory homeItemsDataSourceFactory;
+    private LiveData<PagedList<HomeItem>> homeItemList;
 
     @Inject
     public HomeViewModel(ProductRepository productRepository,
@@ -47,12 +40,7 @@ public class HomeViewModel extends ViewModel {
         this.contentsRepository = contentsRepository;
         productHistoryList = productRepository.getUserProductHistoryList();
         eventIDList = contentsRepository.getEventIds();
-
-        this.config = config;
-        this.homeItemsRef = homeItemsRef;
-
-        homeItemsDataSourceFactory = new HomeItemsDataSourceFactory(homeItemsRef);
-        homItemList = new LivePagedListBuilder<>(homeItemsDataSourceFactory, config).build();
+        homeItemList = new LivePagedListBuilder<>(new HomeItemsDataSourceFactory(homeItemsRef), config).build();
     }
 
     /*******************************************
@@ -81,7 +69,8 @@ public class HomeViewModel extends ViewModel {
         return eventIDList;
     }
 
-    public LiveData<PagedList<HomeItem>> getHomItemList() {
-        return homItemList;
+    public LiveData<PagedList<HomeItem>> getHomeItemList() {
+        return homeItemList;
     }
+
 }
