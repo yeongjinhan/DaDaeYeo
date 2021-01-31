@@ -30,6 +30,7 @@ public class KeywordDataSource {
     }
 
     public void findAutoKeywords(String keyword){
+        Log.d(TAG,"키워드 찾기실행");
         ArrayList<Keyword> result = new ArrayList<>();
         CollectionReference Ref = firebaseFirestore.collection("Products");
         Ref.orderBy("productName").startAt(keyword).endAt(keyword + '\uf8ff')

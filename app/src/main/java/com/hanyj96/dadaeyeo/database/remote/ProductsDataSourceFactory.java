@@ -6,11 +6,10 @@ import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
 
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.Query;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 
 public class ProductsDataSourceFactory extends DataSource.Factory<Integer, Product> {
-    private MutableLiveData<PageKeyedDataSource<Integer, Product>> productData = new MutableLiveData<>();
+    private MutableLiveData<PageKeyedDataSource<Integer, Product>> productsData = new MutableLiveData<>();
     private int searchType;                 // 검색방법 ( 텍스트검색 or 카테고리 검색)
     private int mainCategory;               // 메인 카테고리
     private int subCategory;                // 서브 카테고리
@@ -29,7 +28,7 @@ public class ProductsDataSourceFactory extends DataSource.Factory<Integer, Produ
     @Override
     public DataSource<Integer, Product> create() {
         ProductsDataSource productsDataSource = new ProductsDataSource(searchType,searchText,mainCategory,subCategory,productsRef);
-        productData.postValue(productsDataSource);
+        productsData.postValue(productsDataSource);
         return productsDataSource;
     }
 }

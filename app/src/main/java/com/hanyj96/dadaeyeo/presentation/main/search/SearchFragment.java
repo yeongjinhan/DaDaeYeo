@@ -25,8 +25,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         SearchListAdapter.OnKeywordClickListener,
         SearchListAdapter.OnDeleteKeywordClickListener
 {
+    private static final String TAG = "SearchFragment";
     @Inject SearchViewModel searchViewModel;
-    private InputMethodManager imm;
     private SearchRecyclerAdapter searchRecyclerAdapter;
     private SearchListAdapter searchListAdapter;
 
@@ -45,22 +45,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         initSearchRecyclerView();
         initEditText();
         initSearchKeywordListView();
-        observeProductList();
+        //observeProductList();
         observeKeywordList();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // 프래그먼트를 벗어나면 키보드 숨김
-        imm.hideSoftInputFromWindow(dataBinding.editTextInputWord.getWindowToken(), 0);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        dataBinding.editTextInputWord.setFocusableInTouchMode(true);
-        dataBinding.editTextInputWord.requestFocus();
     }
 
     /*******************************************
@@ -69,6 +55,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     // 검색결과 RecyclerView 주입
     private void initSearchRecyclerView(){
+        Log.d(TAG,"initSearchRecyclerView");
         searchRecyclerAdapter = new SearchRecyclerAdapter(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         dataBinding.mainSearchRecyclerview.setLayoutManager(gridLayoutManager);
@@ -78,13 +65,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     // 검색창 EditText 설정
     private void initEditText(){
-        // 검색 프래그먼트가 호출되면 자동으로 검색창에 포커스 주입
-        dataBinding.editTextInputWord.requestFocus();
-
-        // 포커스 주입과 동시에 키보드 호출
-        imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
+        Log.d(TAG,"initEditText");
         // 검색버튼 클릭 리스너
         dataBinding.editTextInputWord.setOnEditorActionListener((v, actionId, event) -> {
             switch (actionId){
@@ -106,7 +87,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
                 dataBinding.mainSearchKeywordList.setVisibility(View.VISIBLE);
                 Log.d("키워드 입력","포커스 받음");
             }else{
-                imm.hideSoftInputFromWindow(dataBinding.editTextInputWord.getWindowToken(), 0);
                 dataBinding.mainSearchLayout.setVisibility(View.VISIBLE);
                 dataBinding.mainSearchKeywordList.setVisibility(View.INVISIBLE);
                 Log.d("키워드 입력","포커스 없음");
@@ -123,6 +103,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().isEmpty() && s.toString().length() >= 1){
+                    Log.d("서치프래그먼트","키워드 찾기");
                     searchViewModel.findKeywords(s.toString());
                 }
             }
@@ -148,17 +129,15 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     private void observeProductList(){
         searchViewModel.getPagedListLiveData().
-                observe(getViewLifecycleOwner(), products -> searchRecyclerAdapter.submitList(products));
+                observe(getViewLifecycleOwner(), products -> {
+                    searchRecyclerAdapter.submitList(products);
+                    Log.d("제품리스트 옵저버","옵저버 할당");
+                });
     }
 
     private void observeKeywordList(){
         searchViewModel.getKeywordList().
                 observe(getViewLifecycleOwner(), keywords -> searchListAdapter.updateItems(keywords));
-    }
-
-    private void reObserveProductList(){
-        searchViewModel.searchProductByText(this, null);
-        observeProductList();
     }
 
     private void Search(String keyword){
@@ -176,7 +155,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
     // 제품 클릭 리스너
     @Override
     public void onProductClick(Product product) {
-        Log.d("Product",product.getProductName());
         searchViewModel.insertUserProduct(product.getProductID());
     }
 

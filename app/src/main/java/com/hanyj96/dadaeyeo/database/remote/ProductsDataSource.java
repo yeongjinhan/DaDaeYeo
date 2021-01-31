@@ -38,6 +38,7 @@ public class ProductsDataSource extends PageKeyedDataSource<Integer, Product>{
                 }
                 break;
             case SEARCH_TYPE_CATEGORY:
+                    initialQuery = productsRef.limit(PRODUCTS_PER_PAGE).whereEqualTo("mainCategory",mainCategory).whereEqualTo("subCategory",subCategory);
                 break;
         }
     }

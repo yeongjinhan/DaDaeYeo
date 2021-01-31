@@ -48,7 +48,6 @@ public class MainAcitivity extends DaggerAppCompatActivity
         bottomNavigationView = mainBinding.mainBottomNavigationView;
         NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.main_container);
         navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.bottom_menu_home);
     }

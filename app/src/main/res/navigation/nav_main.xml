@@ -34,5 +34,9 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.hanyj96.dadaeyeo.presentation.main.productlist.ProductListFragment"
-        android:label="ProductListFragment" />
+        android:label="ProductListFragment" >
+        <argument
+            android:name="product_list_title"
+            app:argType="string" />
+    </fragment>
 </navigation>

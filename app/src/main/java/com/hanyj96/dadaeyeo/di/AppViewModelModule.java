@@ -11,7 +11,6 @@ import com.hanyj96.dadaeyeo.presentation.splash.SplashViewModel;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.hilt.InstallIn;
 import dagger.multibindings.IntoMap;
 
 @Module
