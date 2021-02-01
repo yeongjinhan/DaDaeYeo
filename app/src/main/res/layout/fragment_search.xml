@@ -3,9 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.hanyj96.dadaeyeo.presentation.main.search.SearchViewModel" />
+        <variable
+            name="productsResult"
+            type="java.lang.Boolean" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="invisible">
+                android:visibility="@{productsResult ? View.VISIBLE : View.GONE}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:divider="@drawable/list_divider"
                 android:dividerHeight="2px"
-                android:visibility="visible" />
+                android:visibility="@{productsResult ? View.GONE : View.VISIBLE}" />
 
         </FrameLayout>
     </LinearLayout>

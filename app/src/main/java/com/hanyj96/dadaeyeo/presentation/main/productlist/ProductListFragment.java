@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hanyj96.dadaeyeo.R;
@@ -32,6 +33,7 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         dataBinding.productListTitle.setText(ProductListFragmentArgs.fromBundle(getArguments()).getProductListTitle());
+        initBackButton();
         initSearchRecyclerView();
         LoadProductListData();
     }
@@ -57,6 +59,12 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
         super.onDetach();
     }
 
+    private void initBackButton(){
+        dataBinding.productListBtnBack.setOnClickListener(v ->
+            NavHostFragment.findNavController(this).navigateUp()
+        );
+    }
+
     private void LoadProductListData(){
         productListViewModel.loadProductsListByCategory(6,1);
         observeProductList();
@@ -70,4 +78,5 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
     private void observeProductList(){
         productListViewModel.getProductList().observe(getViewLifecycleOwner(),products -> searchRecyclerAdapter.submitList(products));
     }
+
 }

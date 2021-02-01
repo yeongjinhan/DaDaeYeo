@@ -45,7 +45,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         initSearchRecyclerView();
         initEditText();
         initSearchKeywordListView();
-        //observeProductList();
         observeKeywordList();
     }
 
@@ -83,13 +82,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         // 검색창 포커스에 따른 키워드 리스트 Visibility 조절
         dataBinding.editTextInputWord.setOnFocusChangeListener((v, hasFocus) -> {
             if(hasFocus){
-                dataBinding.mainSearchLayout.setVisibility(View.INVISIBLE);
-                dataBinding.mainSearchKeywordList.setVisibility(View.VISIBLE);
-                Log.d("키워드 입력","포커스 받음");
+                dataBinding.setProductsResult(false);
             }else{
-                dataBinding.mainSearchLayout.setVisibility(View.VISIBLE);
-                dataBinding.mainSearchKeywordList.setVisibility(View.INVISIBLE);
-                Log.d("키워드 입력","포커스 없음");
+                dataBinding.setProductsResult(true);
             }
         });
 
@@ -103,7 +98,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().isEmpty() && s.toString().length() >= 1){
-                    Log.d("서치프래그먼트","키워드 찾기");
                     searchViewModel.findKeywords(s.toString());
                 }
             }
@@ -131,16 +125,20 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         searchViewModel.getPagedListLiveData().
                 observe(getViewLifecycleOwner(), products -> {
                     searchRecyclerAdapter.submitList(products);
-                    Log.d("제품리스트 옵저버","옵저버 할당");
                 });
     }
 
     private void observeKeywordList(){
         searchViewModel.getKeywordList().
-                observe(getViewLifecycleOwner(), keywords -> searchListAdapter.updateItems(keywords));
+                observe(getViewLifecycleOwner(), keywords -> {
+                    searchListAdapter.updateItems(keywords);
+                });
     }
 
     private void Search(String keyword){
+       /* InputMethodManager manager = (InputMethodManager)requireActivity().getSystemService(requireActivity().INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(requireActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);*/
+
         searchViewModel.searchProductByText(this, keyword.toLowerCase());
         observeProductList();
         // 검색결과 레이아웃에 포커스 삽입

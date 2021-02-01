@@ -1,6 +1,9 @@
 package com.hanyj96.dadaeyeo.utils;
 
 import android.annotation.SuppressLint;
+import android.view.View;
+
+import androidx.compose.ui.geometry.Rect;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,5 +17,11 @@ public class HelperClass {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         return dateFormat.format(date);
+    }
+
+    public static Rect getScrollPosition(View view){
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return new Rect(location[0],location[1],location[0]+view.getMeasuredWidth(),location[1]+view.getMeasuredHeight());
     }
 }

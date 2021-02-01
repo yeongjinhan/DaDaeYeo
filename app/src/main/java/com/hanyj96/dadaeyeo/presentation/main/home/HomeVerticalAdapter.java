@@ -30,7 +30,7 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
     @Override
     public VerticalItemType1ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding = Recycler_View_Type1_DataBinding.inflate(layoutInflater);
+        Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding = Recycler_View_Type1_DataBinding.inflate(layoutInflater, parent, false);
         return new VerticalItemType1ViewHolder(recycler_view_type1_dataBinding);
     }
 
