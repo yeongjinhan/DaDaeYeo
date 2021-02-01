@@ -33,14 +33,18 @@ public class MainAcitivity extends DaggerAppCompatActivity
     // View
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.acitivity_main);
         if(savedInstanceState == null){
             initBottomNavigationView();
-            //mainViewModel.InitData();
-            //mainViewModel.testData();
         }
     }
     private void initBottomNavigationView(){

@@ -3,6 +3,7 @@ package com.hanyj96.dadaeyeo.presentation.main.home;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
@@ -29,6 +30,7 @@ public class HomeViewModel extends ViewModel {
     private LiveData<List<String>> productHistoryList;
     private LiveData<List<String>> eventIDList;
     private LiveData<PagedList<HomeItem>> homeItemList;
+    private MutableLiveData<Integer> scrollY = new MutableLiveData<>();
 
     @Inject
     public HomeViewModel(ProductRepository productRepository,
@@ -41,6 +43,14 @@ public class HomeViewModel extends ViewModel {
         productHistoryList = productRepository.getUserProductHistoryList();
         eventIDList = contentsRepository.getEventIds();
         homeItemList = new LivePagedListBuilder<>(new HomeItemsDataSourceFactory(homeItemsRef), config).build();
+    }
+
+    public void setScrollY(int y){
+        scrollY.setValue(y);
+    }
+
+    public LiveData<Integer> getScrollY(){
+        return scrollY;
     }
 
     /*******************************************

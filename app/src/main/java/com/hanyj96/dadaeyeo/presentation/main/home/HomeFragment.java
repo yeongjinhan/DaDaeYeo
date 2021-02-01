@@ -2,12 +2,16 @@ package com.hanyj96.dadaeyeo.presentation.main.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +39,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     private HomeVerticalAdapter homeVerticalAdapter;
     private HomeViewPagerAdapter homeViewPagerAdapter;
     Disposable disposable;
+
     @Override
     protected int getFragmentLayout() {
         return R.layout.fragment_home;
@@ -50,7 +55,27 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate");
+        Log.d(TAG, "onCreate()");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG,"onPause()");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG,"onResume");
+/*        dataBinding.mainHomeCenterLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Log.d(TAG, "onGlobalLayout()");
+                dataBinding.mainHomeCenterLayout.post(()->dataBinding.mainHomeCenterLayout.scrollTo(0,2300));
+                dataBinding.mainHomeRecyclerview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });*/
     }
 
     @Override
@@ -59,16 +84,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
         Log.d(TAG, "onViewStateRestored");
     }
 
-    private void saveScrollPosition(){
-        dataBinding.mainHomeCenterLayout.scrollTo(0,2373);
-        dataBinding.mainHomeCenterLayout.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.d("스크롤","state : " + scrollX + " / " + scrollY);
-            }
-        });
-
-    }
 
     /*******************************************
      *  Lifecycle
@@ -88,7 +103,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
         //observeProductHistoryList();
         homeViewModel.getAllEventIds();
         observeViewPager();
-        saveScrollPosition();
     }
 
     /*******************************************
@@ -121,7 +135,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
                 observe(getViewLifecycleOwner(), homeItems -> {
                     Log.d("홈아이템","홈아이템 업데이트");
                     homeVerticalAdapter.submitList(homeItems);
-
                 });
     }
 
