@@ -53,6 +53,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated()");
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()");
@@ -68,14 +74,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     public void onResume() {
         super.onResume();
         Log.d(TAG,"onResume");
-/*        dataBinding.mainHomeCenterLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Log.d(TAG, "onGlobalLayout()");
-                dataBinding.mainHomeCenterLayout.post(()->dataBinding.mainHomeCenterLayout.scrollTo(0,2300));
-                dataBinding.mainHomeRecyclerview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });*/
     }
 
     @Override
@@ -84,6 +82,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
         Log.d(TAG, "onViewStateRestored");
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+    }
 
     /*******************************************
      *  Lifecycle

@@ -1,5 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -10,6 +12,8 @@ import javax.inject.Inject;
 
 public class MainViewModel extends ViewModel {
     private MainRepository mainRepository;
+    private MutableLiveData<Integer> currentFragment = new MutableLiveData<>();
+
     @Inject
     MainViewModel(MainRepository mainRepository){
         this.mainRepository = mainRepository;
@@ -21,5 +25,13 @@ public class MainViewModel extends ViewModel {
         Product p2 = new Product(6,1,"60000001","갤럭시워치 액티브2",223270);
         collectionReference.add(p1);
         collectionReference.add(p2);
+    }
+
+    public void setCurrentFragment(int currentFragmentID){
+        currentFragment.setValue(currentFragmentID);
+    }
+
+    public LiveData<Integer> getCurrentFragment(){
+        return currentFragment;
     }
 }

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bottom_menu_cataegory"
+        android:id="@+id/cataegoryFragment"
         android:title="@string/string_bottom_menu_cataegory"
         android:enabled="true"
         android:icon="@drawable/cataegory"/>
     <item
-        android:id="@+id/bottom_menu_search"
+        android:id="@+id/searchFragment"
         android:title="@string/string_bottom_menu_search"
         android:enabled="true"
         android:icon="@drawable/search"/>
     <item
-        android:id="@+id/bottom_menu_home"
+        android:id="@+id/homeFragment"
         android:title="@string/string_bottom_menu_home"
         android:enabled="true"
         android:icon="@drawable/home"/>
     <item
-        android:id="@+id/bottom_menu_myinfo"
+        android:id="@+id/myinfoFragment"
         android:title="@string/string_bottom_menu_myinfo"
         android:enabled="true"
         android:icon="@drawable/myinfo"/>
     <item
-        android:id="@+id/bottom_menu_myrent"
+        android:id="@+id/myrentFragment"
         android:title="@string/string_bottom_menu_myrent"
         android:enabled="true"
         android:icon="@drawable/myrent"/>

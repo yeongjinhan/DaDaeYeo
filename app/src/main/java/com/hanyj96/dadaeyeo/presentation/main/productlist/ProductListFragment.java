@@ -61,7 +61,7 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
 
     private void initBackButton(){
         dataBinding.productListBtnBack.setOnClickListener(v ->
-            NavHostFragment.findNavController(this).navigateUp()
+            NavHostFragment.findNavController(this).popBackStack()
         );
     }
 
