@@ -32,6 +32,7 @@ public class HomeViewModel extends ViewModel {
     private LiveData<PagedList<HomeItem>> homeItemList;
     private MutableLiveData<Integer> scrollY = new MutableLiveData<>();
 
+
     @Inject
     public HomeViewModel(ProductRepository productRepository,
                          ContentsRepository contentsRepository,
@@ -43,6 +44,12 @@ public class HomeViewModel extends ViewModel {
         productHistoryList = productRepository.getUserProductHistoryList();
         eventIDList = contentsRepository.getEventIds();
         homeItemList = new LivePagedListBuilder<>(new HomeItemsDataSourceFactory(homeItemsRef), config).build();
+    }
+
+    @Override
+    protected void onCleared() {
+        Log.d("HomeViewModel","onCleared()");
+        super.onCleared();
     }
 
     public void setScrollY(int y){

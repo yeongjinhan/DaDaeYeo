@@ -59,14 +59,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate()");
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
+        homeViewModel.setScrollY(dataBinding.mainHomeCenterLayout.getScrollY());
         Log.d(TAG,"onPause()");
     }
 
@@ -79,13 +74,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.d(TAG, "onViewStateRestored");
+        Log.d(TAG, "onViewStateRestored()");
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.d(TAG, "onSaveInstanceState");
+        Log.d(TAG, "onSaveInstanceState()");
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDetach() {
+        Log.d(TAG, "onDetach()");
+        super.onDetach();
     }
 
     /*******************************************
@@ -106,6 +107,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
         //observeProductHistoryList();
         homeViewModel.getAllEventIds();
         observeViewPager();
+        observeScrollPosition();
     }
 
     /*******************************************
@@ -174,6 +176,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
                         }
                     });
         }
+    }
+
+    private void observeScrollPosition(){
+        homeViewModel.getScrollY().observe(getViewLifecycleOwner(), y -> {
+            Log.d(TAG, "현재 스크롤 위치 -> " + y);
+        });
     }
 
     /*******************************************

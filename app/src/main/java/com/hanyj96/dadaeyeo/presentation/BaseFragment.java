@@ -16,21 +16,19 @@ import dagger.android.support.DaggerFragment;
 public abstract class BaseFragment<T extends ViewDataBinding> extends DaggerFragment {
     private static final String TAG = "BaseFragment";
     protected T dataBinding;
-    protected T temp;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
         dataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), null, false);
-        Log.d(TAG, "onCreateView()");
-        if(bundle != null){
-            Log.d(TAG, "저장된 데이터 존재함");
-        }
-
-        if(temp != null){
-            Log.d(TAG,temp.toString());
-            return temp.getRoot();
-        }
+        Log.d(TAG, "onCreateView() -> " + dataBinding.hashCode());
         return dataBinding.getRoot();
     }
 
@@ -39,8 +37,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends DaggerFrag
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d(TAG, "onDestroyView() -> " + dataBinding.getRoot().getId());
-        //temp = dataBinding;
+        Log.d(TAG, "onDestroyView() -> " + dataBinding.hashCode());
         dataBinding = null;
     }
 

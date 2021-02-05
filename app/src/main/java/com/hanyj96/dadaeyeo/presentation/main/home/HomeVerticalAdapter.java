@@ -54,8 +54,17 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
         }
     };
 
+    @Override
+    public void onViewRecycled(@NonNull VerticalItemType1ViewHolder holder) {
+        super.onViewRecycled(holder);
+        Log.d("홈리사이클러뷰","stop()");
+        holder.homeHorizontalAdapter.stopListening();
+    }
+
     class VerticalItemType1ViewHolder extends RecyclerView.ViewHolder{
         private Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding;
+        HomeHorizontalAdapter homeHorizontalAdapter;
+
         public VerticalItemType1ViewHolder(Recycler_View_Type1_DataBinding recycler_view_type1_dataBinding) {
             super(recycler_view_type1_dataBinding.getRoot());
             this.recycler_view_type1_dataBinding = recycler_view_type1_dataBinding;
@@ -72,13 +81,14 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
                     .setQuery(query, Product.class)
                     .build();
 
-            HomeHorizontalAdapter homeHorizontalAdapter = new HomeHorizontalAdapter(options);
+            homeHorizontalAdapter = new HomeHorizontalAdapter(options);
             recycler_view_type1_dataBinding.itemType1Recyclerview.setAdapter(homeHorizontalAdapter);
             recycler_view_type1_dataBinding.itemType1Recyclerview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             recycler_view_type1_dataBinding.itemType1Recyclerview.setHasFixedSize(true);
             homeHorizontalAdapter.startListening();
         }
     }
+
 
     public interface OnMoreClickListener {
         void onMoreClick(String title);
