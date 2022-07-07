@@ -1,6 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.splash;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 

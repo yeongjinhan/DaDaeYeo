@@ -20,6 +20,10 @@ import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_COLLECTION;
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_PER_PAGE;
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_PAGED_LIST_CONFIG;
 
+import org.matomo.sdk.Matomo;
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.TrackerBuilder;
+
 @Module
 class AppModule {
 
@@ -66,4 +70,6 @@ class AppModule {
     static CollectionReference provideHomeItemsCollectionReference(FirebaseFirestore rootRef){
         return rootRef.collection(HOME_ITEMS_COLLECTION);
     }
+
+
 }

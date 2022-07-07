@@ -47,5 +47,11 @@
         <argument
             android:name="product_list_title"
             app:argType="string" />
+        <argument
+            android:name="product_list_productCategory"
+            app:argType="string" />
+        <argument
+            android:name="product_list_productSubCategory"
+            app:argType="string" />
     </fragment>
 </navigation>

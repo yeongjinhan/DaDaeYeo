@@ -1,17 +1,22 @@
 package com.hanyj96.dadaeyeo.presentation.main.productlist;
 
 import android.os.Bundle;
+import android.os.Trace;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.hanyj96.dadaeyeo.BaseApplication;
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.FragmentProductListBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
 import com.hanyj96.dadaeyeo.presentation.main.search.SearchRecyclerAdapter;
+
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.extra.TrackHelper;
 
 import javax.inject.Inject;
 
@@ -19,6 +24,8 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
     private static final String TAG = "ProductListFragment";
     private SearchRecyclerAdapter searchRecyclerAdapter;
     @Inject ProductListViewModel productListViewModel;
+
+    private Tracker myTracker;
 
     @Override
     protected int getFragmentLayout() {
@@ -35,7 +42,18 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
         dataBinding.productListTitle.setText(ProductListFragmentArgs.fromBundle(getArguments()).getProductListTitle());
         initBackButton();
         initSearchRecyclerView();
-        LoadProductListData();
+        LoadProductListData(
+                Integer.parseInt(ProductListFragmentArgs.fromBundle(getArguments()).getProductListProductCategory()),
+                Integer.parseInt(ProductListFragmentArgs.fromBundle(getArguments()).getProductListProductSubCategory()));
+
+        myTracker = ((BaseApplication)getActivity().getApplication()).getTracker();
+
+        //((BaseApplication)getActivity().getApplication()).getBaseTrack().screens(getActivity().getApplication()).with(myTracker);
+        /*((BaseApplication)getActivity().getApplication())
+                .getBaseTrack()
+                .screen("MainActivity/ProductListFragment")
+                .title("ProductListView")
+                .with(myTracker);*/
     }
 
     private void initSearchRecyclerView(){
@@ -65,8 +83,8 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
         );
     }
 
-    private void LoadProductListData(){
-        productListViewModel.loadProductsListByCategory(6,1);
+    private void LoadProductListData(int main, int sub){
+        productListViewModel.loadProductsListByCategory(main,sub);
         observeProductList();
     }
 

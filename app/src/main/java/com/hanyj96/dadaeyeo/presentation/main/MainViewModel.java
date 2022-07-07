@@ -8,7 +8,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 
+import org.matomo.sdk.Matomo;
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.TrackerBuilder;
+
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import dagger.Provides;
 
 public class MainViewModel extends ViewModel {
     private MainRepository mainRepository;

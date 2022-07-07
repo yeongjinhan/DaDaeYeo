@@ -9,16 +9,20 @@ public class HomeItem implements Serializable {
     private String itemID;
     private int itemType;
     private String itemTitle;
+    private String productCategory;
+    private String productSubCategory;
     private List<String> productIDs;
 
     @SuppressWarnings("unused")
     public HomeItem() {}
 
     @SuppressWarnings("unused")
-    public HomeItem(String itemID, int itemType, String itemTitle, List<String> productIDs) {
+    public HomeItem(String itemID, int itemType, String itemTitle,String productCategory, String productSubCategory, List<String> productIDs) {
         this.itemID = itemID;
         this.itemType = itemType;
         this.itemTitle = itemTitle;
+        this.productCategory = productCategory;
+        this.productSubCategory = productSubCategory;
         this.productIDs = productIDs;
     }
 
@@ -44,6 +48,22 @@ public class HomeItem implements Serializable {
 
     public void setItemTitle(String itemTitle) {
         this.itemTitle = itemTitle;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public String getProductSubCategory() {
+        return productSubCategory;
+    }
+
+    public void setProductSubCategory(String productSubCategory) {
+        this.productSubCategory = productSubCategory;
     }
 
     public List<String> getProductIDs() {

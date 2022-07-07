@@ -91,6 +91,6 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
 
 
     public interface OnMoreClickListener {
-        void onMoreClick(String title);
+        void onMoreClick(String title, String ProductCategory, String productSubCategory);
     }
 }

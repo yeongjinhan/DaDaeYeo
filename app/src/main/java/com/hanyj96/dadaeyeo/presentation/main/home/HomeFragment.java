@@ -17,11 +17,21 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hanyj96.dadaeyeo.BaseApplication;
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.databinding.FragmentHomeBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
 import com.hanyj96.dadaeyeo.presentation.main.productlist.ProductListFragmentArgs;
 
+import org.matomo.sdk.TrackMe;
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.extra.TrackHelper;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -39,6 +49,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
     private HomeVerticalAdapter homeVerticalAdapter;
     private HomeViewPagerAdapter homeViewPagerAdapter;
     Disposable disposable;
+    private Tracker myTracker;
 
     @Override
     protected int getFragmentLayout() {
@@ -108,6 +119,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
         homeViewModel.getAllEventIds();
         observeViewPager();
         observeScrollPosition();
+
+        myTracker = ((BaseApplication)getActivity().getApplication()).getTracker();
+
+        ((BaseApplication)getActivity().getApplication())
+                .getBaseTrack()
+                .screen("MainActivity/HomeFragment")
+                .title("Pageview")
+                .with(myTracker);
+
+
+
+        //((BaseApplication) getActivity().getApplication()).setCustomDimension("CAMP_ID", "C123456789");
+        //((BaseApplication) getActivity().getApplication()).setCustomDimension("CUST_ID", "960110");
     }
 
     /*******************************************
@@ -189,7 +213,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding>
      *******************************************/
 
     @Override
-    public void onMoreClick(String title) {
-        NavHostFragment.findNavController(this).navigate(HomeFragmentDirections.actionHomeFragmentToProductListFragment(title));
+    public void onMoreClick(String title, String productCategory, String productSubCategory) {
+        NavHostFragment.findNavController(this).navigate(HomeFragmentDirections.actionHomeFragmentToProductListFragment(title, productCategory, productSubCategory));
+
+        ((BaseApplication) getActivity().getApplication())
+                .getBaseTrack()
+                .event("상품", "이동")
+                .name("상품 카테고리")
+                .path("MainActivity/HomeFragment")
+                .with(myTracker);
     }
 }

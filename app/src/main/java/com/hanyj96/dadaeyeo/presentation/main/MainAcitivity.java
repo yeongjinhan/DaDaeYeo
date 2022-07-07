@@ -21,9 +21,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hanyj96.dadaeyeo.BaseApplication;
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.databinding.AcitivityMainBinding;
 import com.hanyj96.dadaeyeo.presentation.main.home.HomeFragmentDirections;
+
+import org.matomo.sdk.QueryParams;
+import org.matomo.sdk.TrackMe;
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.extra.TrackHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +49,7 @@ public class MainAcitivity extends DaggerAppCompatActivity implements
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
 
+    private Tracker myTraker;
     /*******************************************
      *  Lifecycle
      *******************************************/
@@ -55,6 +62,13 @@ public class MainAcitivity extends DaggerAppCompatActivity implements
             initBottomNavigationView();
             observeCurrentFragment();
         }
+        myTraker = ((BaseApplication)getApplication()).getTracker();
+
+        ((BaseApplication)getApplication())
+                .getBaseTrack()
+                .screen("MainActivity")
+                .title("Pageview")
+                .with(myTraker);
     }
 
     /*******************************************

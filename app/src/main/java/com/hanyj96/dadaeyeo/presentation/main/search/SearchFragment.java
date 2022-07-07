@@ -12,11 +12,16 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hanyj96.dadaeyeo.BaseApplication;
 import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 import com.hanyj96.dadaeyeo.databinding.FragmentSearchBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
+
+import org.matomo.sdk.Tracker;
+import org.matomo.sdk.extra.TrackHelper;
+
 import javax.inject.Inject;
 
 
@@ -31,6 +36,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
     @Inject SearchViewModel searchViewModel;
     private SearchRecyclerAdapter searchRecyclerAdapter;
     private SearchListAdapter searchListAdapter;
+    Tracker myTracker;
 
     @Override
     protected int getFragmentLayout() {
@@ -48,6 +54,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         initEditText();
         initSearchKeywordListView();
         observeKeywordList();
+
+        // Matomo SDK
+        myTracker = ((BaseApplication) getActivity().getApplication()).getTracker();
     }
 
     /*******************************************
@@ -165,6 +174,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     @Override
     public void ClickKeyword(Keyword keyword) {
+        // matomoSDK 검색어 수집
+        TrackHelper.track().search(keyword.getKeyword()).with(myTracker);
         dataBinding.editTextInputWord.setText(keyword.getKeyword());
         Search(keyword.getKeyword());
     }
