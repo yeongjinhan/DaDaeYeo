@@ -8,11 +8,15 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.Item_type1_1DataBinding;
+import com.hanyj96.dadaeyeo.presentation.main.search.SearchRecyclerAdapter;
 
 
 public class HomeHorizontalAdapter extends FirestoreRecyclerAdapter<Product, HomeHorizontalAdapter.HomeHorizontalViewHolder> {
-    public HomeHorizontalAdapter(FirestoreRecyclerOptions<Product> options){
+    private SearchRecyclerAdapter.OnProductClickListener onProductClickListener;
+
+    public HomeHorizontalAdapter(FirestoreRecyclerOptions<Product> options, SearchRecyclerAdapter.OnProductClickListener onProductClickListener){
         super(options);
+        this.onProductClickListener = onProductClickListener;
     }
     @NonNull
     @Override
@@ -35,6 +39,7 @@ public class HomeHorizontalAdapter extends FirestoreRecyclerAdapter<Product, Hom
         }
         void bindData(Product product){
             item_type1_1DataBinding.setData(product);
+            item_type1_1DataBinding.setOnProductClickListener(onProductClickListener);
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class KeywordDataSource {
-    private static final String TAG = "KeywordDataSource";
+    private static final String TAG = KeywordDataSource.class.getName();
 
     private MutableLiveData<List<Keyword>> Keywords = new MutableLiveData<>();
     private FirebaseFirestore firebaseFirestore;
@@ -30,7 +30,6 @@ public class KeywordDataSource {
     }
 
     public void findAutoKeywords(String keyword){
-        Log.d(TAG,"키워드 찾기실행");
         ArrayList<Keyword> result = new ArrayList<>();
         CollectionReference Ref = firebaseFirestore.collection("Products");
         Ref.orderBy("productName").startAt(keyword).endAt(keyword + '\uf8ff')
@@ -38,7 +37,6 @@ public class KeywordDataSource {
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d(TAG, document.getId() + " => " + document.get("productName").toString());
                             result.add(new Keyword(document.get("productName").toString(),true,""));
                         }
                         if(result != null){

@@ -27,4 +27,10 @@ public interface Constants {
 
     int PRODUCT_HISTORY = 0;
     int PRODUCT_WISH_LIST = 1;
+
+    /*******************************************
+     *  Util
+     *******************************************/
+    String BASE_TRACK = "baseTrack";
+    String TRACKER = "tracker";
 }

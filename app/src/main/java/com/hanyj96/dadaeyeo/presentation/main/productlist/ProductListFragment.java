@@ -1,5 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main.productlist;
 
+import static com.hanyj96.dadaeyeo.utils.Constants.BASE_TRACK;
+
 import android.os.Bundle;
 import android.os.Trace;
 import android.util.Log;
@@ -13,19 +15,23 @@ import com.hanyj96.dadaeyeo.R;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.FragmentProductListBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
+import com.hanyj96.dadaeyeo.presentation.main.home.HomeFragmentDirections;
+import com.hanyj96.dadaeyeo.presentation.main.search.SearchFragment;
 import com.hanyj96.dadaeyeo.presentation.main.search.SearchRecyclerAdapter;
 
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.extra.TrackHelper;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class ProductListFragment extends BaseFragment<FragmentProductListBinding> implements SearchRecyclerAdapter.OnProductClickListener{
-    private static final String TAG = "ProductListFragment";
+    private static final String TAG = ProductListFragment.class.getSimpleName();
     private SearchRecyclerAdapter searchRecyclerAdapter;
     @Inject ProductListViewModel productListViewModel;
-
-    private Tracker myTracker;
+    private Tracker tracker;
+    @Inject @Named(BASE_TRACK)
+    TrackHelper.Dimension BaseTrack;
 
     @Override
     protected int getFragmentLayout() {
@@ -45,19 +51,13 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
         LoadProductListData(
                 Integer.parseInt(ProductListFragmentArgs.fromBundle(getArguments()).getProductListProductCategory()),
                 Integer.parseInt(ProductListFragmentArgs.fromBundle(getArguments()).getProductListProductSubCategory()));
-
-        myTracker = ((BaseApplication)getActivity().getApplication()).getTracker();
-
-        //((BaseApplication)getActivity().getApplication()).getBaseTrack().screens(getActivity().getApplication()).with(myTracker);
-        /*((BaseApplication)getActivity().getApplication())
-                .getBaseTrack()
-                .screen("MainActivity/ProductListFragment")
-                .title("ProductListView")
-                .with(myTracker);*/
+        // tracker 인스턴스 저장
+        tracker = ((BaseApplication)getActivity().getApplication()).getTracker();
+        // 현재 스크린 경로 수집
+        BaseTrack.screen("/MainActivity/" + ProductListFragment.class.getSimpleName()).title("상품목록화면").with(tracker);
     }
 
     private void initSearchRecyclerView(){
-        Log.d(TAG,"initSearchRecyclerView");
         searchRecyclerAdapter = new SearchRecyclerAdapter(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         dataBinding.productListRecyclerView.setLayoutManager(gridLayoutManager);
@@ -68,12 +68,10 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d("제품리스트","onDestroyView");
     }
 
     @Override
     public void onDetach() {
-        Log.d("제품리스트","onDetach");
         super.onDetach();
     }
 
@@ -90,7 +88,9 @@ public class ProductListFragment extends BaseFragment<FragmentProductListBinding
 
     @Override
     public void onProductClick(Product product) {
-
+        // 클릭 이벤트 수집
+        BaseTrack.event("PRODUCT","Product Detail View").name(product.getProductName()).with(tracker);
+        NavHostFragment.findNavController(this).navigate(ProductListFragmentDirections.actionProductListFragmentToProductInfoFragment(product.getProductID()));
     }
 
     private void observeProductList(){

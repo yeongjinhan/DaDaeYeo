@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hanyj96.dadaeyeo.presentation.main.product.ProductInfoViewModel" />
+        <variable
+            name="data"
+            type="com.hanyj96.dadaeyeo.data.model.products.ProductInfo" />
+        <variable
+            name="onBuyButtonClickListener"
+            type="com.hanyj96.dadaeyeo.presentation.main.product.ProductInfoEventListener.OnBuyButtonClickListener"/>
+        <variable
+            name="onAddCartButtonClickListener"
+            type="com.hanyj96.dadaeyeo.presentation.main.product.ProductInfoEventListener.OnAddCartButtonClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F1F1F1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/search_bottom_line"
+                android:orientation="horizontal"
+                android:paddingLeft="8dp"
+                android:paddingRight="15dp">
+
+                <ImageButton
+                    android:id="@+id/product_info_btn_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|left"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="?attr/actionModeCloseDrawable" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5px"
+            android:background="#E1E1E1">
+
+            <FrameLayout
+                android:id="@+id/product_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:background="#FFFFFF">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/product_info_product_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <io.github.vejei.viewpagerindicator.indicator.CircleIndicator
+                    android:id="@+id/product_info_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginBottom="10dp"
+                    android:scrollIndicators="none"
+                    app:indicatorColor="#80E1E1E1"
+                    app:indicatorGap="8dp"
+                    app:indicatorRadius="5dp"
+                    app:indicatorSelectedColor="#000000" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/search_bottom_line"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@{data.productName}"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:bind_String_PurchaseCount="@{data.purchaseCount}"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:bind_String_price="@{data.productPrice}"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/product_info_btn_buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_round"
+                    android:text="바로구매"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:onClick="@{(v) -> onBuyButtonClickListener.onBuyClick(data)}"/>
+
+                <Button
+                    android:id="@+id/product_info_btn_addcart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_stroke_round"
+                    android:text="장바구니담기"
+                    android:textStyle="bold"
+                    android:onClick="@{(v) -> onAddCartButtonClickListener.onAddCartClick(data)}"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

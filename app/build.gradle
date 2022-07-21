@@ -3,12 +3,12 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 32
 
     defaultConfig {
         applicationId "com.hanyj96.dadaeyeo"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -41,7 +41,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.android.support:design:29.0.0'
+    implementation 'com.android.support:design:32.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     /* 구글 파이어베이스 라이브러리 */
     implementation 'com.google.firebase:firebase-firestore:22.0.2'
@@ -59,7 +59,7 @@ dependencies {
     def dagger2_version = '2.31.2'
         //noinspection GradleDependency
         implementation "com.google.dagger:dagger:$dagger2_version"			// dagger 라이브러리
-        implementation "com.google.dagger:dagger-android:$dagger2_version"		// dagger-android 라이브러리
+        implementation "com.google.dagger:dagger-android:2.35.1"		// dagger-android 라이브러리
         implementation "com.google.dagger:dagger-android-support:$dagger2_version"	// dagger-android-support 라이브러리
         annotationProcessor "com.google.dagger:dagger-android-processor:$dagger2_version"
         annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"

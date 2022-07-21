@@ -1,16 +1,15 @@
 package com.hanyj96.dadaeyeo.data.repository;
 
-import android.util.Log;
-
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
+import com.hanyj96.dadaeyeo.data.model.products.ProductInfo;
 import com.hanyj96.dadaeyeo.data.model.products.userProduct;
 import com.hanyj96.dadaeyeo.database.local.ProductDao;
+import com.hanyj96.dadaeyeo.database.remote.ProductInfoDataSource;
 import com.hanyj96.dadaeyeo.database.remote.ProductsDataSourceFactory;
 
 import java.util.List;
@@ -29,6 +28,7 @@ public class ProductRepository {
     /* Local */
     private ProductDao productDao;
     /* remote */
+    private ProductInfoDataSource productInfoDataSource;
     private ProductsDataSourceFactory productsDataSourceFactory;
     private PagedList.Config productsConfig;
     private CollectionReference productsRef;
@@ -36,6 +36,7 @@ public class ProductRepository {
     private LiveData<PagedList<Product>> productPagedList;
     private LiveData<List<String>> userProductHistoryList;
     private LiveData<List<String>> userProductWishList;
+    private LiveData<ProductInfo> productInfo;
 
     @Inject
     ProductRepository(ProductDao productDao,
@@ -44,13 +45,10 @@ public class ProductRepository {
         this.productDao = productDao;
         this.productsConfig = productsConfig;
         this.productsRef = productsRef;
-        // 검색한 제품 기록
         this.userProductHistoryList = productDao.getUserProductHistoryList();
-        // 찜한 제품 기록
         this.userProductWishList = productDao.getUserProductWishList();
-        // ProductDataSourceFactory Setting
-        //this.productsDataSourceFactory = new ProductsDataSourceFactory(SEARCH_TYPE_NAME,null,0,0, productsRef);
-        //this.productPagedList = new LivePagedListBuilder<>(productsDataSourceFactory,productsConfig).build();
+        this.productInfoDataSource = new ProductInfoDataSource();
+        this.productInfo = productInfoDataSource.getProductInfo();
     }
 
     /*******************************************
@@ -94,6 +92,10 @@ public class ProductRepository {
         return new LivePagedListBuilder<>(productsDataSourceFactory, productsConfig).build();
     }
 
+    public void getProductInfoByID(String productID){
+        productInfoDataSource.getProductInfoByID(productID);
+    }
+
     /*******************************************
      *  observeData
      *******************************************/
@@ -104,6 +106,10 @@ public class ProductRepository {
 
     public LiveData<List<String>> getUserProductWishList() {
         return userProductWishList;
+    }
+
+    public LiveData<ProductInfo> getProductInfo() {
+        return productInfo;
     }
 
     //public LiveData<PagedList<Product>> getProductPagedList() { return productPagedList; }

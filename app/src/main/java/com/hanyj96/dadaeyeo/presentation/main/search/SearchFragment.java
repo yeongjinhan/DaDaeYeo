@@ -1,5 +1,7 @@
 package com.hanyj96.dadaeyeo.presentation.main.search;
 
+import static com.hanyj96.dadaeyeo.utils.Constants.BASE_TRACK;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,12 +20,13 @@ import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.data.model.user.Keyword;
 import com.hanyj96.dadaeyeo.databinding.FragmentSearchBinding;
 import com.hanyj96.dadaeyeo.presentation.BaseFragment;
+import com.hanyj96.dadaeyeo.presentation.main.home.HomeFragment;
 
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.extra.TrackHelper;
 
 import javax.inject.Inject;
-
+import javax.inject.Named;
 
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding>
@@ -32,11 +35,13 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         SearchListAdapter.OnKeywordClickListener,
         SearchListAdapter.OnDeleteKeywordClickListener
 {
-    private static final String TAG = "SearchFragment";
+    private static final String TAG = SearchFragment.class.getSimpleName();
     @Inject SearchViewModel searchViewModel;
     private SearchRecyclerAdapter searchRecyclerAdapter;
     private SearchListAdapter searchListAdapter;
-    Tracker myTracker;
+    private Tracker tracker;
+    @Inject @Named(BASE_TRACK)
+    TrackHelper.Dimension BaseTrack;
 
     @Override
     protected int getFragmentLayout() {
@@ -54,9 +59,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
         initEditText();
         initSearchKeywordListView();
         observeKeywordList();
-
-        // Matomo SDK
-        myTracker = ((BaseApplication) getActivity().getApplication()).getTracker();
+        // tracker 인스턴스 저장
+        tracker = ((BaseApplication)getActivity().getApplication()).getTracker();
+        // 현재 스크린 경로 수집
+        BaseTrack.screen("/MainActivity/" + SearchFragment.class.getSimpleName()).title("검색화면").with(tracker);
     }
 
     /*******************************************
@@ -65,7 +71,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     // 검색결과 RecyclerView 주입
     private void initSearchRecyclerView(){
-        Log.d(TAG,"initSearchRecyclerView");
         searchRecyclerAdapter = new SearchRecyclerAdapter(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         dataBinding.mainSearchRecyclerview.setLayoutManager(gridLayoutManager);
@@ -75,7 +80,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     // 검색창 EditText 설정
     private void initEditText(){
-        Log.d(TAG,"initEditText");
         // 검색버튼 클릭 리스너
         dataBinding.editTextInputWord.setOnEditorActionListener((v, actionId, event) -> {
             switch (actionId){
@@ -147,12 +151,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
     }
 
     private void Search(String keyword){
-       /* InputMethodManager manager = (InputMethodManager)requireActivity().getSystemService(requireActivity().INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(requireActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);*/
-
         searchViewModel.searchProductByText(this, keyword.toLowerCase());
+
+        // 검색 키워드 수집
+        BaseTrack.search(keyword).with(tracker);
+
         observeProductList();
-        // 검색결과 레이아웃에 포커스 삽입
         dataBinding.mainSearchLayout.setFocusableInTouchMode(true);
         dataBinding.mainSearchLayout.requestFocus();
     }
@@ -161,10 +165,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
      *  Event Listener
      *******************************************/
 
-    // 제품 클릭 리스너
     @Override
     public void onProductClick(Product product) {
-        searchViewModel.insertUserProduct(product.getProductID());
+        //searchViewModel.insertUserProduct(product.getProductID());
     }
 
     @Override
@@ -174,8 +177,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding>
 
     @Override
     public void ClickKeyword(Keyword keyword) {
-        // matomoSDK 검색어 수집
-        TrackHelper.track().search(keyword.getKeyword()).with(myTracker);
         dataBinding.editTextInputWord.setText(keyword.getKeyword());
         Search(keyword.getKeyword());
     }

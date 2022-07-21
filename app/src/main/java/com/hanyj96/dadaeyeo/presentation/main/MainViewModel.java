@@ -26,6 +26,7 @@ public class MainViewModel extends ViewModel {
     MainViewModel(MainRepository mainRepository){
         this.mainRepository = mainRepository;
     }
+
     public void InitData(){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("Products");

@@ -6,6 +6,9 @@
         <variable
             name="data"
             type="com.hanyj96.dadaeyeo.data.model.products.Product" />
+        <variable
+            name="onProductClickListener"
+            type="com.hanyj96.dadaeyeo.presentation.main.search.SearchRecyclerAdapter.OnProductClickListener"/>
     </data>
 
     <LinearLayout
@@ -17,6 +20,7 @@
         android:layout_marginBottom="10dp"
         android:background="#FFFFFF"
         android:orientation="vertical"
+        android:onClick="@{(v) -> onProductClickListener.onProductClick(data)}"
         android:paddingRight="10dp">
 
         <ImageView

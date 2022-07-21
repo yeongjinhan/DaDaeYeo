@@ -49,7 +49,6 @@ public class MainAcitivity extends DaggerAppCompatActivity implements
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
 
-    private Tracker myTraker;
     /*******************************************
      *  Lifecycle
      *******************************************/
@@ -62,13 +61,6 @@ public class MainAcitivity extends DaggerAppCompatActivity implements
             initBottomNavigationView();
             observeCurrentFragment();
         }
-        myTraker = ((BaseApplication)getApplication()).getTracker();
-
-        ((BaseApplication)getApplication())
-                .getBaseTrack()
-                .screen("MainActivity")
-                .title("Pageview")
-                .with(myTraker);
     }
 
     /*******************************************

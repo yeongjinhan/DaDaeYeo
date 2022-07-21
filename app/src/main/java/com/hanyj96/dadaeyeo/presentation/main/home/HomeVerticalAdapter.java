@@ -15,15 +15,18 @@ import com.google.firebase.firestore.Query;
 import com.hanyj96.dadaeyeo.data.model.contents.HomeItem;
 import com.hanyj96.dadaeyeo.data.model.products.Product;
 import com.hanyj96.dadaeyeo.databinding.Recycler_View_Type1_DataBinding;
+import com.hanyj96.dadaeyeo.presentation.main.search.SearchRecyclerAdapter;
 
 public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVerticalAdapter.VerticalItemType1ViewHolder> {
     private Context context;
     private OnMoreClickListener onClickListener;
+    private SearchRecyclerAdapter.OnProductClickListener onProductClickListener;
 
-    public HomeVerticalAdapter(Context context, OnMoreClickListener onClickListener){
+    public HomeVerticalAdapter(Context context, OnMoreClickListener onClickListener, SearchRecyclerAdapter.OnProductClickListener onProductClickListener){
         super(diffCallback);
         this.context = context;
         this.onClickListener = onClickListener;
+        this.onProductClickListener = onProductClickListener;
     }
 
     @NonNull
@@ -81,14 +84,13 @@ public class HomeVerticalAdapter extends PagedListAdapter<HomeItem, HomeVertical
                     .setQuery(query, Product.class)
                     .build();
 
-            homeHorizontalAdapter = new HomeHorizontalAdapter(options);
+            homeHorizontalAdapter = new HomeHorizontalAdapter(options, onProductClickListener);
             recycler_view_type1_dataBinding.itemType1Recyclerview.setAdapter(homeHorizontalAdapter);
             recycler_view_type1_dataBinding.itemType1Recyclerview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             recycler_view_type1_dataBinding.itemType1Recyclerview.setHasFixedSize(true);
             homeHorizontalAdapter.startListening();
         }
     }
-
 
     public interface OnMoreClickListener {
         void onMoreClick(String title, String ProductCategory, String productSubCategory);

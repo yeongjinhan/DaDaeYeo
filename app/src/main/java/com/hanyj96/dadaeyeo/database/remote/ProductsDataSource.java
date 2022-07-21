@@ -19,7 +19,7 @@ import static com.hanyj96.dadaeyeo.utils.Constants.*;
 
 @SuppressWarnings("ConstantConditions")
 public class ProductsDataSource extends PageKeyedDataSource<Integer, Product>{
-    private static final String TAG = "ProductsDataSource";
+    private static final String TAG = ProductsDataSource.class.getName();
     private Query initialQuery;             // 검색 쿼리
     private DocumentSnapshot lastVisible;
     private boolean lastPageReached;

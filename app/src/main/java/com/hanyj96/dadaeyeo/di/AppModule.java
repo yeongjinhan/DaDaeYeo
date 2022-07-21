@@ -13,16 +13,24 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+import static com.hanyj96.dadaeyeo.utils.Constants.BASE_TRACK;
 import static com.hanyj96.dadaeyeo.utils.Constants.HOME_ITEMS_COLLECTION;
 import static com.hanyj96.dadaeyeo.utils.Constants.HOME_ITEMS_PER_PAGE;
 import static com.hanyj96.dadaeyeo.utils.Constants.HOME_ITEMS_PAGED_LIST_CONFIG;
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_COLLECTION;
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_PER_PAGE;
 import static com.hanyj96.dadaeyeo.utils.Constants.PRODUCTS_PAGED_LIST_CONFIG;
+import static com.hanyj96.dadaeyeo.utils.Constants.TRACKER;
 
 import org.matomo.sdk.Matomo;
+import org.matomo.sdk.QueryParams;
+import org.matomo.sdk.TrackMe;
 import org.matomo.sdk.Tracker;
 import org.matomo.sdk.TrackerBuilder;
+import org.matomo.sdk.extra.TrackHelper;
+
+import java.util.Calendar;
+import java.util.Date;
 
 @Module
 class AppModule {
@@ -71,5 +79,18 @@ class AppModule {
         return rootRef.collection(HOME_ITEMS_COLLECTION);
     }
 
+    @Singleton
+    @Provides
+    @Named(BASE_TRACK)
+    static TrackHelper.Dimension provideBaseTrack(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
 
+        TrackMe trackMe = new TrackMe();
+        trackMe.set(QueryParams.HOURS, Long.toString(calendar.get(calendar.HOUR)));
+        trackMe.set(QueryParams.MINUTES, Long.toString(calendar.get(calendar.MINUTE)));
+        trackMe.set(QueryParams.SECONDS, Long.toString(calendar.get(calendar.SECOND)));
+        return TrackHelper.track(trackMe)
+                .dimension(1, Long.toString(calendar.get(calendar.MILLISECOND)));
+    }
 }

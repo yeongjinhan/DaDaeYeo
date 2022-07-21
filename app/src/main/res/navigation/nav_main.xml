@@ -18,6 +18,14 @@
             app:launchSingleTop="false"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/cataegoryFragment"
@@ -28,7 +36,16 @@
         android:id="@+id/searchFragment"
         android:name="com.hanyj96.dadaeyeo.presentation.main.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/myinfoFragment"
         android:name="com.hanyj96.dadaeyeo.presentation.main.myinfo.MyinfoFragment"
@@ -52,6 +69,23 @@
             app:argType="string" />
         <argument
             android:name="product_list_productSubCategory"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_productListFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/productInfoFragment"
+        android:name="com.hanyj96.dadaeyeo.presentation.main.product.ProductInfoFragment"
+        android:label="productInfoFragment"
+        tools:layout="@layout/fragment_productinfo">
+        <argument
+            android:name="productID"
             app:argType="string" />
     </fragment>
 </navigation>

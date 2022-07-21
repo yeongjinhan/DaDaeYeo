@@ -8,39 +8,40 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.hanyj96.dadaeyeo.data.model.user.Keyword;
+import com.hanyj96.dadaeyeo.data.model.products.Product;
+import com.hanyj96.dadaeyeo.data.model.products.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
-public class ContentsDataSource {
-    private static final String TAG = ContentsDataSource.class.getName();
+public class ProductInfoDataSource {
+    private static final String TAG = ProductInfoDataSource.class.getName();
 
-    private MutableLiveData<List<String>> eventIDList = new MutableLiveData<>();
     private FirebaseFirestore firebaseFirestore;
+    private MutableLiveData<ProductInfo> productInfo = new MutableLiveData<>();
 
-    public ContentsDataSource(){
+    public ProductInfoDataSource(){
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
-    public LiveData<List<String>> getEventIDList() {
-        return eventIDList;
+    public LiveData<ProductInfo> getProductInfo() {
+        return productInfo;
     }
 
-    public void getAllEventIDList(){
-        List<String> result = new ArrayList<>();
-        CollectionReference Ref = firebaseFirestore.collection("Contents");
-        Ref.whereEqualTo("type",1)
+    public void getProductInfoByID(String productID){
+        CollectionReference Ref = firebaseFirestore.collection("ProductInfo");
+        Ref.whereEqualTo("productID", productID)
                 .get()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d(TAG, document.getId() + " => " + document.get("id").toString());
-                            result.add(document.get("id").toString());
-                        }
-                        if(result != null){
-                            eventIDList.setValue(result);
+                            if(document == null){
+                                Log.d(TAG, "document is Null");
+                            }else{
+                                productInfo.setValue(document.toObject(ProductInfo.class));
+                            }
+
                         }
                     }else{
                         Log.d(TAG, "Error getting documents: ", task.getException());

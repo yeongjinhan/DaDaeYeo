@@ -38,7 +38,6 @@ public class HomeViewModel extends ViewModel {
                          ContentsRepository contentsRepository,
                          @Named(HOME_ITEMS_PAGED_LIST_CONFIG)PagedList.Config config,
                          @Named(HOME_ITEMS_COLLECTION)CollectionReference homeItemsRef){
-        Log.d("HomeViewModel", "홈뷰모델 생성");
         this.productRepository = productRepository;
         this.contentsRepository = contentsRepository;
         productHistoryList = productRepository.getUserProductHistoryList();

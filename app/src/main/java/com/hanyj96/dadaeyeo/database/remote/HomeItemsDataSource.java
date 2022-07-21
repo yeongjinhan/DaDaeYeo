@@ -20,7 +20,7 @@ import static com.hanyj96.dadaeyeo.utils.Constants.HOME_ITEMS_PER_PAGE;
 
 @SuppressWarnings("ConstantConditions")
 public class HomeItemsDataSource extends PageKeyedDataSource<Integer, HomeItem>{
-    private static final String TAG = "HomeItemsDataSource";
+    private static final String TAG = HomeItemsDataSource.class.getName();
     private Query initialQuery;
     private DocumentSnapshot lastVisible;
     private boolean lastPageReached;
@@ -32,7 +32,6 @@ public class HomeItemsDataSource extends PageKeyedDataSource<Integer, HomeItem>{
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, HomeItem> callback) {
-        Log.d(TAG, "loadInitial");
         initialQuery.get().addOnCompleteListener(task ->{
             List<HomeItem> initialHomeItemList = new ArrayList<>();
             if(task.isSuccessful()){
@@ -53,12 +52,10 @@ public class HomeItemsDataSource extends PageKeyedDataSource<Integer, HomeItem>{
 
     @Override
     public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, HomeItem> callback) {
-        Log.d(TAG, "loadBefore");
     }
 
     @Override
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, HomeItem> callback) {
-        Log.d(TAG, "loadAfter");
         Query nextQuery = initialQuery.startAfter(lastVisible);
         nextQuery.get().addOnCompleteListener(task -> {
             List<HomeItem> nextHomeItemList = new ArrayList<>();

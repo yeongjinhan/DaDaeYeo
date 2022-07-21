@@ -6,6 +6,7 @@ import com.hanyj96.dadaeyeo.presentation.main.myinfo.MyinfoFragment;
 import com.hanyj96.dadaeyeo.presentation.main.myrent.MyrentFragment;
 import com.hanyj96.dadaeyeo.presentation.main.productlist.ProductListFragment;
 import com.hanyj96.dadaeyeo.presentation.main.search.SearchFragment;
+import com.hanyj96.dadaeyeo.presentation.main.product.ProductInfoFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -31,4 +32,7 @@ abstract class FragmentBuilderModule {
 
     @ContributesAndroidInjector
     abstract ProductListFragment contributeProductListFragment();
+
+    @ContributesAndroidInjector
+    abstract ProductInfoFragment contributeProductInfoFragment();
 }
